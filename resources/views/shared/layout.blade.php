@@ -30,6 +30,7 @@
             </nav>
         </header>
         @show
+        <br/>
         <div class="container" style="margin-top:5rem;">
             <main role="main" class="pb-3">
                 @yield('content')
