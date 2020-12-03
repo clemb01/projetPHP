@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class MovieController extends BaseController
 {  
-    public function getFilm()
+    public function getFilms(Request $request)
     {    
         $baseAPIUrl = "https://api.themoviedb.org/3";
         $apiKey = "92db563e1ec1286dac46e4ee14889fcf";
 
+        $page = $request->get('page');
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "$baseAPIUrl/discover/movie?api_key=$apiKey&language=fr-FR&sort_by=popularity.desc&page=1",
+            CURLOPT_URL => "$baseAPIUrl/discover/movie?api_key=$apiKey&language=fr-FR&sort_by=popularity.desc&page=$page",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
@@ -38,6 +41,6 @@ class MovieController extends BaseController
 
         $result = json_decode($response);
         
-        return view('greeting', ['model' => $result]);
+        return view('accueil', ['model' => $result]);
     }
 }
