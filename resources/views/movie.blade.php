@@ -61,7 +61,22 @@
         @endif
         <div>
             <h2 class="display-4">Cast</h2>
-            <ul class="scrollmenu" id="cast-display">
+            <ul style="margin: 0; padding: 0; display: flex; flex-direction: row; overflow-x: auto;" id="cast-display">
+                @if (count($model->getCast()->cast) > 0)
+                    @foreach ($model->getCast()->cast as $person)
+                        <li style="flex: 0 0 auto;">
+                            <div class="card" style="width: 152px; height: auto; margin-right: 1px; margin-bottom: 1px; border:hidden; background-color:#ecf0f1 ;">
+                                <img src="http://image.tmdb.org/t/p/w500{{ $person->profile_path }}" style="width: 150px; height: 200px; border-radius: 2.5px 2.5px 0 0; display: block;" onerror="this.onerror = null; this.src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-36-user-female-grey-d9222f16ec16a33ed5e2c9bbdca07a4c48db14008bbebbabced8f8ed1fa2ad59.svg'" />
+                                <div class="card-body" style="padding: 0.1rem 0 0 0.25rem;">
+                                    <h5 class="card-title card-custom font-weight-bold">{{ $person->name }}</h5>
+                                    <p class="card-text align-bottom">{{ $person->character }}</p>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                @else
+                <h4>Le cast n'a pas été renseigné</h4>
+                @endif
             </ul>
         </div>
         <br />
