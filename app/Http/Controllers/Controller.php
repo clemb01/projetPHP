@@ -18,6 +18,14 @@ class Controller extends BaseController
         
         return view('greeting', ['tests' => $test]);
     }
+
+    //Recuperation des users depuis la BDD
+    public function RecupUsers()
+    {
+        $results = DB::select("SELECT * FROM users");
+
+        return view('nom_de_la_view', ['users' => $users]);
+    }
 }
 
 class Test
