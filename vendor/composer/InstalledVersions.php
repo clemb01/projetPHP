@@ -14,12 +14,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'v8.1.1',
-    'version' => '8.1.1.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '9c0e8a631b66eedcb1ce3a45a2180a7cece7e736',
     'name' => 'laravel/lumen',
   ),
   'versions' => 
@@ -362,12 +362,12 @@ private static $installed = array (
     ),
     'laravel/lumen' => 
     array (
-      'pretty_version' => 'v8.1.1',
-      'version' => '8.1.1.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '9c0e8a631b66eedcb1ce3a45a2180a7cece7e736',
     ),
     'laravel/lumen-framework' => 
     array (
@@ -614,8 +614,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -1034,6 +1034,22 @@ private static $installed = array (
       array (
       ),
       'reference' => '75a63c33a8577608444246075ea0af0d052e452a',
+    ),
+    'twbs/bootstrap' => 
+    array (
+      'pretty_version' => 'v4.5.3',
+      'version' => '4.5.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a716fb03f965dc0846df479e14388b1b4b93d7ce',
+    ),
+    'twitter/bootstrap' => 
+    array (
+      'replaced' => 
+      array (
+        0 => 'v4.5.3',
+      ),
     ),
     'vlucas/phpdotenv' => 
     array (
