@@ -15,3 +15,4 @@
 
 $router->get('/[accueil]', 'MovieController@getFilms');
 $router->get('/movie/{id}', 'MovieController@getFilm');
+$router->get('/search', 'MovieController@search');
