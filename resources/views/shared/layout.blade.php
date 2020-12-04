@@ -16,10 +16,10 @@
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="home" asp-action="index">Accueil <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item" style="margin-left: auto; margin-right: auto;">
-                            <form class="form-inline my-2 my-lg-0" asp-area="" asp-controller="movie" asp-action="search" method="get">
+                            <form class="form-inline my-2 my-lg-0" action="search" method="get">
                                 <input class="form-control mr-sm-2" type="text" name="query" placeholder="Rechercher un film" required>
                                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Chercher</button>
                             </form>
