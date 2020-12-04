@@ -29,13 +29,10 @@
             </nav>
         </header>
         @show
-        <br/>
-        <div class="container" style="margin-top:5rem;">
+        <div class="container" style="margin-top:4rem;">
             <main role="main" class="pb-3">
                 @yield('content')
             </main>
-            <div id="error">
-            </div>
         </main>            
        </div>
     </body>

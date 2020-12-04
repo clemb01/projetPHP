@@ -46,6 +46,8 @@ class MovieController extends BaseController
 
     public function getFilm($id)
     {
+        $model = new MovieModel();
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -71,9 +73,34 @@ class MovieController extends BaseController
             return view('movie', ['model' => $err]);
         }
 
-        $result = json_decode($response);
+        $model->setMovie(json_decode($response));
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "$this->baseAPIUrl/movie/$id/videos?api_key=$this->apiKey&language=fr-FR",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "cache-control: no-cache"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if($response)
+        {
+            $model->setTrailer(json_decode($response));
+        }
         
-        return view('movie', ['model' => $result]);
+        return view('movie', ['model' => $model]);
     }
 
     public function search(Request $request)
@@ -150,6 +177,43 @@ class MovieController extends BaseController
         
         return view('movie', ['model' => $result]);
     }*/
+}
+
+class MovieModel
+{
+    private $movie;
+    private $trailer;
+    private $cast;
+
+    public function getMovie()
+    {
+        return $this->movie;
+    }
+
+    public function setMovie($value)
+    {
+        $this->movie = $value;
+    }
+
+    public function getTrailer()
+    {
+        return $this->trailer;
+    }
+
+    public function setTrailer($value)
+    {
+        $this->trailer = $value;
+    }
+
+    public function getCast()
+    {
+        return $this->cast;
+    }
+
+    public function setCast($value)
+    {
+        $this->cast = $value;
+    }
 }
 
 class SearchModel

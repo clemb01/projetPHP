@@ -3,20 +3,21 @@
 @section('title', 'movie titre')
 
 <?php
-    $dateArray = date_parse($model->release_date);
+    $movie = $model->getMovie();
+    $dateArray = date_parse($movie->release_date);
 
     $date = ($dateArray['day'] < 10 ? "0" . $dateArray['day'] : $dateArray['day']) . "/";
     $date .= ($dateArray['month'] < 10 ? "0" . $dateArray['month'] : $dateArray['month']) . "/";
     $date .= $dateArray['year'];
 
-    $hour = (int)($model->runtime / 60) . "h";
-    $hour .= ($model->runtime % 60) . "m";
+    $hour = (int)($movie->runtime / 60) . "h";
+    $hour .= ($movie->runtime % 60) . "m";
 ?>
 
 @section('content')
 <div class="jumbotron p-0">
     <div class="header large border first" style="border-bottom: 1px solid rgba(20.20%, 20.78%, 19.22%, 1.00);
-                                                background-image: url('http://image.tmdb.org/t/p/w1920_and_h800_multi_faces{{ $model->backdrop_path }}');
+                                                background-image: url('http://image.tmdb.org/t/p/w1920_and_h800_multi_faces{{ $movie->backdrop_path }}');
                                                 background-position: right -200px top;
                                                 background-size: cover;
                                                 background-repeat: no-repeat;
@@ -28,18 +29,18 @@
             <div style="padding: 2rem 2rem;">
                 <div class="row">
                     <div class="col-4">
-                        <img src="http://image.tmdb.org/t/p/w500{{ $model->poster_path }}" style="width: 300px; height: 450px;" onerror="this.onerror = null; this.src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg'" class="thumbnail" />
+                        <img src="http://image.tmdb.org/t/p/w500{{ $movie->poster_path }}" style="width: 300px; height: 450px;" onerror="this.onerror = null; this.src='https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg'" class="thumbnail" />
                     </div>
                     <div class="col-8">
-                        <h1 class="display-4" style="font-size: 36px;">{{ $model->title }}</h1>
+                        <h1 class="display-4" style="font-size: 36px;">{{ $movie->title }}</h1>
                         <p>{{ $date }} - {{ $hour }}</p>
                         <p class="lead">Synopsis</p>
-                        <p>{{ $model->overview }}</p>
+                        <p>{{ $movie->overview ? $movie->overview : "Pas de synopsis renseigné" }}</p>
                         <p class="lead">Genres</p>
                         <p>
-                            <?php $count = count($model->genres); ?>
+                            <?php $count = count($movie->genres); ?>
                             @for ($i = 0; $i < $count; $i++)
-                                <span style="color: #0366d6; font-weight: bold;">{{ $model->genres[$i]->name }}</span>
+                                <span style="color: #0366d6; font-weight: bold;">{{ $movie->genres[$i]->name }}</span>
                                 @if ($i < $count - 1)
                                     , 
                                 @endif
@@ -50,10 +51,14 @@
             </div>
         </div>
     </div>
-    <div style="padding: 4rem 2rem;">
+    <div style="padding: 2rem 2rem;">
+        @if($model->getTrailer()->results)
         <div id="trailer-container">
+            <h2 class="display-4">Trailer</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $model->getTrailer()->results[0]->key }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <br />
+        @endif
         <div>
             <h2 class="display-4">Cast</h2>
             <ul class="scrollmenu" id="cast-display">
@@ -61,7 +66,7 @@
         </div>
         <br />
         <div>
-            <h2 class="display-4">Commentaires ()</h2>
+            <h2 class="display-4">Commentaires (TODO: Nombre de commentaires)</h2>
             <h3>Ecrire un commentaire</h3>
             <form action="/movie/commentaire" method="post">
                 <fieldset>
