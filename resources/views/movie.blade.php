@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('title', 'movie titre')
+@section('title', $model->getMovie()->title)
 
 <?php
     $movie = $model->getMovie();
@@ -16,15 +16,7 @@
 
 @section('content')
 <div class="jumbotron p-0">
-    <div class="header large border first" style="border-bottom: 1px solid rgba(20.20%, 20.78%, 19.22%, 1.00);
-                                                background-image: url('http://image.tmdb.org/t/p/w1920_and_h800_multi_faces{{ $movie->backdrop_path }}');
-                                                background-position: right -200px top;
-                                                background-size: cover;
-                                                background-repeat: no-repeat;
-                                                width: 100%;
-                                                position: relative;
-                                                z-index: 1;
-                                                color: white; ">
+    <div class="header large border first" style="background-image: url('http://image.tmdb.org/t/p/w1920_and_h800_multi_faces{{ $movie->backdrop_path }}');">
         <div style="background-image: linear-gradient(to right, rgba(11.76%, 18.43%, 23.53%, 1.00) 150px, rgba(18.82%, 25.49%, 30.59%, 0.54) 100%);">
             <div style="padding: 2rem 2rem;">
                 <div class="row">
@@ -33,7 +25,10 @@
                     </div>
                     <div class="col-8">
                         <h1 class="display-4" style="font-size: 36px;">{{ $movie->title }}</h1>
-                        <p>{{ $date }} - {{ $hour }}</p>
+                        <span>
+                            {{ $date }} - {{ $hour }}
+                            <div id="note_utilisateurs"></div>
+                        </span>
                         <p class="lead">Synopsis</p>
                         <p>{{ $movie->overview ? $movie->overview : "Pas de synopsis renseigné" }}</p>
                         <p class="lead">Genres</p>
@@ -52,6 +47,15 @@
         </div>
     </div>
     <div style="padding: 2rem 2rem;">
+        <div class="container">
+            <div class="row">
+                <div id="user_rate" class="col-sm border py-3 px-lg-5">
+                </div>
+                <div class="col-sm border py-3 px-lg-5">
+                    <a href="#commentaire" style="font-size: 24px; text-decoration: none;">Voir les commentaires</a>
+                </div>
+            </div>
+        </div>
         @if($model->getTrailer()->results)
         <div id="trailer-container">
             <h2 class="display-4">Trailer</h2>
@@ -83,7 +87,7 @@
         <div>
             <h2 class="display-4">Commentaires (TODO: Nombre de commentaires)</h2>
             <h3>Ecrire un commentaire</h3>
-            <form action="/movie/commentaire" method="post">
+            <form id="commentaire" action="/movie/commentaire" method="post">
                 <fieldset>
                     <input name="MovieId" value="@Model.id" hidden />
                     <input name="MovieName" value="@Model.title" hidden />
@@ -98,4 +102,65 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type='text/javascript'>
+ $(document).ready(function() {
+    getRate();
+    getUserRate();
+  });
+
+  function getRate() {
+      $.ajax({
+        url: "/rate/getrate",
+        type: "GET",
+        data: { movieId: <?php echo $model->getMovie()->id ?> }
+      })
+      .done(function(result){
+        $('#note_utilisateurs').html(result);
+      })
+      .fail(function(result){
+          console.log(result);
+      });
+  }
+
+  function getUserRate() {
+    $.ajax({
+        url: "/rate/getuserrate",
+        type: "GET",
+        data: { movieId: <?php echo $model->getMovie()->id ?> }
+      })
+      .done(function(result){
+        $('#user_rate').html(result);
+
+        $('#rateForm').submit(function(event){
+            event.preventDefault();
+            var form_data = $(this).serialize();
+            submitForm(form_data);
+        });
+
+        $('input[name=rating]').change(function(){
+            $('#rateForm').submit();
+        });
+      })
+      .fail(function(result){
+          console.log(result);
+      });
+  }
+
+  function submitForm(form_data) {
+      $.ajax({
+		url : "/rate/rate",
+		type: "POST",
+		data : form_data
+	}).done(function(result){
+        getRate();
+        getUserRate();
+	})
+      .fail(function(result){
+          console.log(result);
+      });
+  }
+</script>
 @endsection
