@@ -170,6 +170,12 @@ class MovieController extends BaseController
 
         return view('search', ['model' => $model]);
     }
+
+    public function rateMovie(Request $request)
+    {
+        //return redirect('/movie/'.$request->get('movieId'));
+        return var_dump($request->get('rating'));
+    }
 }
 
 class MovieModel

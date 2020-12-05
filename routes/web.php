@@ -16,3 +16,7 @@
 $router->get('/[accueil]', 'MovieController@getFilms');
 $router->get('/movie/{id}', 'MovieController@getFilm');
 $router->get('/search', 'MovieController@search');
+
+$router->get('/rate/getrate', 'NoteController@getMovieRate');
+$router->get('/rate/getuserrate', 'NoteController@getUserMovieRate');
+$router->post('/rate/rate', 'NoteController@rateMovie');

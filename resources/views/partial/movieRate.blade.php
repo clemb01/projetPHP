@@ -1,0 +1,1 @@
+ Note moyenne des utilisateurs: {{ $note }} <i class="rating__icon rating__icon--star fa fa-star"></i>
