@@ -106,32 +106,10 @@
 
 @section('script')
 <script type='text/javascript'>
-
- $(document).ready(function() { 
+ $(document).ready(function() {
     getRate();
     getUserRate();
-
-    $('input[name=rating]').change(function(){
-            $('#rateForm').submit();
-    });
-
-    $('#rateForm').submit(function(event){
-        event.preventDefault();
-        var form_data = $(this).serialize();
-        submitForm(form_data);
-    });
   });
-
-  function submitForm(form_data) {
-      $.ajax({
-		url : "/rate/rate",
-		type: "POST",
-		data : form_data
-	}).done(function(response){
-        getRate();
-        getUserRate();
-	});
-  }
 
   function getRate() {
       $.ajax({
@@ -155,7 +133,31 @@
       })
       .done(function(result){
         $('#user_rate').html(result);
+
+        $('#rateForm').submit(function(event){
+            event.preventDefault();
+            var form_data = $(this).serialize();
+            submitForm(form_data);
+        });
+
+        $('input[name=rating]').change(function(){
+            $('#rateForm').submit();
+        });
       })
+      .fail(function(result){
+          console.log(result);
+      });
+  }
+
+  function submitForm(form_data) {
+      $.ajax({
+		url : "/rate/rate",
+		type: "POST",
+		data : form_data
+	}).done(function(result){
+        getRate();
+        getUserRate();
+	})
       .fail(function(result){
           console.log(result);
       });

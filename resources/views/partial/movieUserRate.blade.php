@@ -5,8 +5,8 @@ function checkValue($expected, $note){
 }
 ?>
 
-<span style="font-size: 24px;">Noter: </span>
-<form id="rateForm" class="align-top" style="display: inline-flex;" action="/movie/rate" method="post">
+<span style="font-size: 24px;">{{ $note == -1 ? "Noter:" : "Votre note: " }}</span>
+<form id="rateForm" class="align-top" style="display: inline-flex;" action="/rate/rate" method="post">
     <div class="rating-group">
         <input name="movieId" value="{{ $movieId }}" hidden>
         <input class="rating__input rating__input--none" name="rating" id="rating-0" value="0" type="radio" {{ checkValue(0, $note) }}>
@@ -20,7 +20,7 @@ function checkValue($expected, $note){
         <label aria-label="2 stars" class="rating__label" for="rating-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
         <input class="rating__input" name="rating" id="rating-20" value="2" type="radio" {{ checkValue(2, $note) }}>
         <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-        <input class="rating__input" name="rating" id="rating-25" value="2.5" type="radio" {{ checkValue(2.5, $note) }}>
+        <input class="rating__input" name="rating" id="rating-25" value="2.5" type="radio" {{ $note == - 1 ? "checked" : checkValue(2.5, $note) }}>
         <label aria-label="3 stars" class="rating__label" for="rating-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
         <input class="rating__input" name="rating" id="rating-30" value="3" type="radio" {{ checkValue(3, $note) }}>
         <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
