@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use App\Models\SearchModel;
+use App\Models\MovieModel;
 
 class MovieController extends BaseController
 {  
@@ -175,68 +177,5 @@ class MovieController extends BaseController
     {
         //return redirect('/movie/'.$request->get('movieId'));
         return var_dump($request->get('rating'));
-    }
-}
-
-class MovieModel
-{
-    private $movie;
-    private $trailer;
-    private $cast;
-
-    public function getMovie()
-    {
-        return $this->movie;
-    }
-
-    public function setMovie($value)
-    {
-        $this->movie = $value;
-    }
-
-    public function getTrailer()
-    {
-        return $this->trailer;
-    }
-
-    public function setTrailer($value)
-    {
-        $this->trailer = $value;
-    }
-
-    public function getCast()
-    {
-        return $this->cast;
-    }
-
-    public function setCast($value)
-    {
-        $this->cast = $value;
-    }
-}
-
-class SearchModel
-{
-    private $query;
-    private $result;
-
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
-    public function setQuery($value)
-    {
-        $this->query = $value;
-    }
-
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    public function setResult($value)
-    {
-        $this->result = $value;
     }
 }
