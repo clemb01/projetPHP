@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Note extends Model
+class Commentaire extends Model
 {
     private $id;
-    private $note;
-    private $filmId;
-    private $fk_UserId;
+    private $contenu;
+    private $date;
+    private $valide;
+    private $film_id;
+    private $nom_film;
+    private $fk_userId;
 
     public function __construct($donnees){
         if($donnees) 
@@ -40,14 +43,34 @@ class Note extends Model
         $this->id = $value;
     }
 
-    public function Note()
+    public function Contenu()
     {
-        return $this->note;
+        return $this->contenu;
     }
 
-    public function setNote($value)
+    public function setContenu($value)
     {
-        $this->note = $value;
+        $this->contenu = $value;
+    }
+
+    public function Date()
+    {
+        return $this->date;
+    }
+
+    public function setDate($value)
+    {
+        $this->date = $value;
+    }
+
+    public function Valide()
+    {
+        return $this->valide;
+    }
+
+    public function setValide($value)
+    {
+        $this->valide = $value;
     }
 
     public function FilmId()
@@ -60,13 +83,23 @@ class Note extends Model
         $this->filmId = $value;
     }
 
+    public function Nom_Film()
+    {
+        return $this->nom_film;
+    }
+
+    public function setNom_Film($value)
+    {
+        $this->nom_film = $value;
+    }
+
     public function Fk_User_Id()
     {
-        return $this->fk_UserId;
+        return $this->fk_userId;
     }
 
     public function setFk_User_Id($value)
     {
-        $this->fk_UserId = $value;
+        $this->fk_userId = $value;
     }
 }
