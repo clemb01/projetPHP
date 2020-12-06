@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use App\Models\Note;
 
 class NoteController extends BaseController
 {
     public function getMovieRate(Request $request)
     {
-        $rate = DB::select("SELECT AVG(note) as moyenne, COUNT(note) as nbvotes FROM note WHERE fk_user_id = ? AND film_id = ? LIMIT 1", [1, $request->get('movieId')]);
+        $rate = DB::select("SELECT AVG(note) as moyenne, COUNT(note) as nbvotes FROM note WHERE film_id = ?", [$request->get('movieId')]);
 
-        if(!$rate || !$rate[0]->moyenne)
+        if(!$rate || $rate[0]->moyenne === NULL)
             return view('partial.movieRate', ['note' => -1]);
 
         return view('partial.movieRate', ['note' => $rate[0]->moyenne, 'nbvotes' => $rate[0]->nbvotes]);
@@ -20,12 +21,18 @@ class NoteController extends BaseController
 
     public function getUserMovieRate(Request $request)
     {
-        $userRate = DB::select("SELECT note FROM note WHERE film_id = ?", [$request->get('movieId')]);
+        $result = DB::select("SELECT * FROM note WHERE fk_user_id = ? AND film_id = ? LIMIT 1", [1, $request->get('movieId')]);
 
-        if(!$userRate)
-            return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => -1]);
+        if(count($result) > 0)
+            $userRate = new Note($result[0]);
+        else
+        {
+            $userRate = new Note(null);
+            $userRate->setFilm_Id($request->get('movieId'));
+            $userRate->setNote(-1);
+        }
 
-        return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => $userRate[0]->note]);
+        return view('partial.movieUserRate', ['model' => $userRate]);
     }
 
     // POST
