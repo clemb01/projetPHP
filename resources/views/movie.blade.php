@@ -87,11 +87,9 @@
         <div>
             <h2 class="display-4">Commentaires (TODO: Nombre de commentaires)</h2>
             <h3>Ecrire un commentaire</h3>
-            <form id="commentaire" action="/movie/commentaire" method="post">
+            <form id="commentaire" action="/comms/commentaire" method="post">
                 <fieldset>
-                    <input name="MovieId" value="@Model.id" hidden />
-                    <input name="MovieName" value="@Model.title" hidden />
-                    <input name="MoviePoster" value="@Model.poster_path" hidden />
+                    <input name="MovieId" value="{{$model->getMovie()->id}}" hidden />
                     <div class="form-group">
                         <label for="commentaire">Message</label>
                         <textarea class="form-control" name="Message" id="commentaire" rows="3" required></textarea>
