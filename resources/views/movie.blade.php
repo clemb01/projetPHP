@@ -101,29 +101,9 @@
         <div>
         <br />
             <h3>Critiques</h3>
-<<<<<<< HEAD
                 <div id='comms'>
 
                 </div>
-=======
-            <?php
-            try
-            {
-                $bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', 'root');
-            }
-            catch(Exception $e)
-            {
-                die('Erreur : '.$e->getMessage());
-            }
-            
-            $reponse = $bdd->query('SELECT contenu FROM commentaire');
-
-            while($donnees = $reponse->fetch())
-            {
-                echo $reponse;
-            }
-            ?>
->>>>>>> suite critiques/comms
         </div>
     </div>
 </div>
