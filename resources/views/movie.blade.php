@@ -85,8 +85,8 @@
         </div>
         <br />
         <div>
-            <h2 class="display-4">Commentaires (TODO: Nombre de commentaires)</h2>
-            <h3>Ecrire un commentaire</h3>
+        <br />
+            <h3>Rédiger une critique</h3>
             <form id="commentaire" action="/comms/commentaire" method="post">
                 <fieldset>
                     <input name="MovieId" value="{{$model->getMovie()->id}}" hidden />
@@ -97,6 +97,27 @@
                     <button type="submit" class="btn btn-primary">Valider</button>
                 </fieldset>
             </form>
+        </div>
+        <div>
+        <br />
+            <h3>Critiques</h3>
+            <?php
+            try
+            {
+                $bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', 'root');
+            }
+            catch(Exception $e)
+            {
+                die('Erreur : '.$e->getMessage());
+            }
+            
+            $reponse = $bdd->query('SELECT contenu FROM commentaire');
+
+            while($donnees = $reponse->fetch())
+            {
+                echo $reponse;
+            }
+            ?>
         </div>
     </div>
 </div>

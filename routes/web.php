@@ -25,3 +25,4 @@ $router->post('/comms/commentaire', 'CommentaireController@saveComms');
 
 $router->get('/admin', 'AdminController@getAccueilAdmin');
 $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommentaire');
+$router->get('/comms/getCommentaire', 'CommentaireController@getUserMovieComms');
