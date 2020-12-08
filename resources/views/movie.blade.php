@@ -101,23 +101,9 @@
         <div>
         <br />
             <h3>Critiques</h3>
-            <?php
-            try
-            {
-                $bdd = new PDO('mysql:host=localhost;dbname=projet_php', 'root', 'root');
-            }
-            catch(Exception $e)
-            {
-                die('Erreur : '.$e->getMessage());
-            }
-            
-            $reponse = $bdd->query('SELECT contenu FROM commentaire');
+                <div id='comms'>
 
-            while($donnees = $reponse->fetch())
-            {
-                echo $reponse;
-            }
-            ?>
+                </div>
         </div>
     </div>
 </div>
@@ -128,6 +114,7 @@
  $(document).ready(function() {
     getRate();
     getUserRate();
+    getComms();
   });
 
   function getRate() {
@@ -177,6 +164,20 @@
         getRate();
         getUserRate();
 	})
+      .fail(function(result){
+          console.log(result);
+      });
+  }
+
+  function getComms() {
+      $.ajax({
+        url: "/comms/getCommentaire",
+        type: "GET",
+        data: { movieId: <?php echo $model->getMovie()->id ?> }
+      })
+      .done(function(result){
+        $('#comms').html(result);
+      })
       .fail(function(result){
           console.log(result);
       });
