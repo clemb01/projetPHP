@@ -100,11 +100,18 @@
         </div>
         <div>
         <br />
+<<<<<<< HEAD
         
             
             <div id='comms'>
             </div> 
         
+=======
+            <h3>Critiques</h3>
+                <div id='comms'>
+
+                </div>
+>>>>>>> 48eb37d3845c0fcddc49ad6f8b61bb33bd9b7557
         </div>
     </div>
 </div>
