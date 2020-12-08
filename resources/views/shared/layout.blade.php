@@ -26,6 +26,9 @@
                             </form>
                         </li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right slices" id="TitreConnection">
+                    <li class='nav-item active' ><a class='nav-link' ><button class="btn btn-secondary my-2 my-sm-0" data-toggle='modal' data-target='#choixuser' type="submit">Se connecter</button></a></li>
+                    </ul>
                     </div>
                 </div>
             </nav>
@@ -34,7 +37,38 @@
         <div class="container" style="margin-top:3.4rem;">
             <main role="main" class="pb-3">
                 @yield('content')
-            </main>           
+            </main>
+        </main>
+        <div class="modal fade" id="SeConnecter" role="dialog">
+                <div class="modal-dialog" style="max-width: 90%;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Nom d'utilisateur</h2>
+                        </div>
+                        <div class="modal-body" id="formulaire">
+                            <div id="">
+                                <span id='NumRef'><p>Référence : </p></span>
+
+                                <div class="row col-sm-12 my-auto" id='ResetBoutonRef'>
+
+                                    <div class="col-sm-6">
+                                        <button name="" id="BtnRefOK" type="button" onclick="changeColor('BtnRefOK')" class="btn btn-lg btn-succes" style="font-size: 200%;" data-dismiss="">OK</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button name="" id="BtnRefNOK" type="button" onclick="changeColor('BtnRefNOK')" class="btn btn-lg" style="font-size: 200%;" data-dismiss="">NOK</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="BtnChangeUser" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Se connecter</button>
+                            <button type="button" id="BtnCancel" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>           
        </div>
     <script src="/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
