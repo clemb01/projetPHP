@@ -100,10 +100,11 @@
         </div>
         <div>
         <br />
-            <h3>Critiques</h3>
-                <div id='comms'>
-
-                </div>
+        
+            
+            <div id='comms'>
+            </div> 
+        
         </div>
     </div>
 </div>
