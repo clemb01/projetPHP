@@ -11,6 +11,7 @@
     $date .= $dateArray['year'];
 
     $hour = (int)($movie->runtime / 60) . "h";
+    $hour .= ($movie->runtime % 60) > 0 ? ($movie->runtime % 60) . "m" : "";
 ?>
 
 @section('content')

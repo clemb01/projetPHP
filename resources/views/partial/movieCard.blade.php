@@ -8,6 +8,6 @@ $url = "http://image.tmdb.org/t/p/w220_and_h330_face" . $model->Poster_path();
     </a>
     <div class="card-body" style="padding: 0.1rem 0 0 0.25rem;">
         <h5 class="card-title card-custom"><a class="text-decoration-none font-weight-bold" style="color: black;" href="movie/{{ $model->Id() }}" title="{{ $model->Title() }}">{{ $model->Title() }}</a></h5>
-        <p class="card-text align-bottom">{{ $model->Release_date() ? $model->Release_date() : "ALLO" }}</p>
+        <small class="card-text align-bottom">{{ $model->Release_date() ? $model->Release_date() : "Date de sortie non renseignée" }}</small>
     </div>
 </div>
