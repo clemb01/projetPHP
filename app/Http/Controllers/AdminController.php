@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
-use App\Models\Commentaire;
+use App\Models\CommentaireViewModel;
 
 class AdminController extends BaseController
 {
@@ -16,22 +16,31 @@ class AdminController extends BaseController
 
     public function getPendingCommentaire(Request $request)
     {
-        $query = "SELECT * FROM commentaire WHERE valide = 0";
+        $query = "SELECT commentaire.*, user.login, note.note
+                    FROM commentaire
+                    LEFT OUTER JOIN user
+                    ON commentaire.fk_user_id = user.id
+                    LEFT OUTER JOIN note
+                    ON commentaire.film_id = note.film_id
+                    WHERE valide = 0";
+
         $params = array();
 
         if($request->get('userName') !== '')
         {
             $user = $request->get('userName');
-            $query .= " AND fk_user_id LIKE '%$user%'";
+            $query .= " AND user.login LIKE '%$user%'";
             //array_push($params, "'%".$request->get('userName')."%'");
         }
 
         if($request->get('movieName') !== '')
         {
             $movie = $request->get('movieName');
-            $query .= " AND film_id LIKE '%$movie%'";
+            $query .= " AND commentaire.Film_titre LIKE '%$$movie%'";
             //array_push($params, "'%$movie%'"); // Ne fonctionne pas comme ça aucune idée de pourquoi
         }
+
+        return var_dump($query);
 
         $results = DB::select($query, $params);
         $model = array();
@@ -40,7 +49,7 @@ class AdminController extends BaseController
         {
             foreach($results as $result)
             {
-                array_push($model, new Commentaire($result));
+                array_push($model, new CommentaireViewModel($result));
             }
         }
 

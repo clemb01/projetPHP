@@ -11,10 +11,10 @@
                 <label>Filtres: </label>
             </div>
             <div class="col-3">
-                <input type="text" name="userName" class="form-control" placeholder="Nom utilisateur">
+                <input type="text" name="userName" class="form-control" placeholder="Nom utilisateur" value="">
             </div>
             <div class="col-3">
-                <input type="text" name="movieName" class="form-control" placeholder="Nom du film">
+                <input type="text" name="movieName" class="form-control" placeholder="Nom du film" value="">
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
@@ -29,7 +29,15 @@
 @section('script')
 <script type='text/javascript'>
  $(document).ready(function() {
-    getCommentaire();
+    $.ajax({
+		url : "/admin/getpendingcommentaire?userName=&movieName=",
+		type: "GET"
+	}).done(function(result){
+        $('#commentaires').html(result);
+	})
+      .fail(function(result){
+          console.log(result);
+      });
 
     $('#searchForm').submit(function(event){
         event.preventDefault();

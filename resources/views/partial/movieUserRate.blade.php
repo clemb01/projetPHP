@@ -5,7 +5,7 @@ function checkValue($expected, $note){
 }
 ?>
 
-<span style="font-size: 24px;">{{ $model->Note() == -1 ? "Noter:" : "Votre note: " }}</span>
+<span style="font-size: 20px;">{{ $model->Note() == -1 ? "Noter:" : "Votre note: " }}</span>
 <form id="rateForm" class="align-top" style="display: inline-flex;" action="/rate/rate" method="post">
     <div class="rating-group">
         <input name="movieId" value="{{ $model->FilmId() }}" hidden>

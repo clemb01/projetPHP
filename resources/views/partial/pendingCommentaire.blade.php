@@ -5,15 +5,13 @@
         <div class="card mb-3">
             <div class="row no-gutters">
                 <div class="col-md-2">
-                    <img src="http://image.tmdb.org/t/p/w500/fvzeghfdizf.png" class="card-img thumbnail">
+                    <a href="/movie/{{ $commentaire->FilmId() }}"><img src="http://image.tmdb.org/t/p/w500{{ $commentaire->Film_logo() }}" class="card-img thumbnail" style="width: 110px;"></a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">Test</h5>
+                        <a href="/movie/{{ $commentaire->FilmId() }}"><h5 class="card-title">{{ $commentaire->Film_titre() }}</h5></a>
                         <p class="card-text">{{ $commentaire->Contenu() }}</p>
-                        {{-- <p class="card-text"><small class="text-muted">Ecris par @Html.DisplayFor(modelItem => item.Username) @Html.DisplayFor(modelItem => item.Date)</small></p>
-                        @Html.ActionLink("Valider le commentaire", "valider", new { id = item.Id }) |
-                        @Html.ActionLink("Supprimer le commentaire", "delete", new { id = item.Id }) --}}
+                    <p class="card-text"><small class="text-muted">Ecris par {{ $commentaire->Login() }} le {{ $commentaire->Date() }}</small></p>
                     </div>
                 </div>
             </div>

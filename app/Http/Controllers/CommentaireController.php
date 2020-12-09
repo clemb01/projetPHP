@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class CommentaireController extends BaseController
 {
-    
     public function getUserMovieRate(Request $request)
     {
     $userRate = DB::select("SELECT contenu FROM commentaire WHERE film_id = ?", [$request->get('movieId')]);

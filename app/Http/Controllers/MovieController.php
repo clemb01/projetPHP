@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use App\Models\SearchModel;
-use App\Models\MovieModel;
+use App\Models\SearchViewModel;
+use App\Models\MovieViewModel;
 
 class MovieController extends BaseController
 {  
@@ -42,13 +42,15 @@ class MovieController extends BaseController
         }
 
         $result = json_decode($response);
+
+        $model = new SearchViewModel($result);
         
-        return view('accueil', ['model' => $result]);
+        return view('accueil', ['model' => $model]);
     }
 
     public function getFilm($id)
     {
-        $model = new MovieModel();
+        $model = new MovieViewModel();
 
         $curl = curl_init();
 
@@ -135,16 +137,14 @@ class MovieController extends BaseController
         $query = $request->get('query');
         $page = $request->get('page') ? $request->get('page') : 1;
 
-        $model = new SearchModel();
         $query = trim($query);
-        $model->setQuery($query);
 
-        $query = str_replace(" ", "+", $query);
+        $editedQuery = str_replace(" ", "+", $query);
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "$this->baseAPIUrl/search/movie?api_key=$this->apiKey&language=fr-FR&query=$query&page=$page&include_adult=false",
+            CURLOPT_URL => "$this->baseAPIUrl/search/movie?api_key=$this->apiKey&language=fr-FR&query=$editedQuery&page=$page&include_adult=false",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
@@ -168,14 +168,9 @@ class MovieController extends BaseController
 
         $result = json_decode($response);
 
-        $model->setResult($result);
+        $model = new SearchViewModel($result);
+        $model->setQuery($query);
 
         return view('search', ['model' => $model]);
-    }
-
-    public function rateMovie(Request $request)
-    {
-        //return redirect('/movie/'.$request->get('movieId'));
-        return var_dump($request->get('rating'));
     }
 }

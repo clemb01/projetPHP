@@ -11,7 +11,6 @@
     $date .= $dateArray['year'];
 
     $hour = (int)($movie->runtime / 60) . "h";
-    $hour .= ($movie->runtime % 60) . "m";
 ?>
 
 @section('content')
@@ -49,10 +48,13 @@
     <div style="padding: 2rem 2rem;">
         <div class="container">
             <div class="row">
-                <div id="user_rate" class="col-sm border py-3 px-lg-5">
+                <div id="user_rate" class="col-sm-5 border py-3 px-lg-5">
                 </div>
-                <div class="col-sm border py-3 px-lg-5">
-                    <a href="#commentaire" style="font-size: 24px; text-decoration: none;">Voir les commentaires</a>
+                <div class="col-sm-4 border py-3 px-lg-5">
+                    <span id="avisToggle" data-toggle="modal" data-target="#modalRedigerAvis">Rédiger une critique</span>
+                </div>
+                <div class="col-sm-3 border py-3 px-lg-5">
+                    <a href="#commentaire" style="font-size: 20px; text-decoration: none;">Voir les critiques</a>
                 </div>
             </div>
         </div>
