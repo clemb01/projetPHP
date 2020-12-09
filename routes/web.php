@@ -25,3 +25,5 @@ $router->post('/comms/commentaire', 'CommentaireController@saveComms');
 
 $router->get('/admin', 'AdminController@getAccueilAdmin');
 $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommentaire');
+$router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
+$router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');

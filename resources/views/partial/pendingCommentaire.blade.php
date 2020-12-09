@@ -14,6 +14,15 @@
                     <p class="card-text"><small class="text-muted">Ecris par {{ $commentaire->Login() }} le {{ $commentaire->Date() }}</small></p>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <form method="post" action="/admin/acceptercommentaire">
+                        <input name="commentaireId" value="{{ $commentaire->Id() }}" hidden/>
+                        <div class="form-group">
+                            <button class="btn btn-primary">Accepter</button>
+                            <button class="btn btn-secondary" formaction="/admin/refusercommentaire">Refuser</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     @endforeach

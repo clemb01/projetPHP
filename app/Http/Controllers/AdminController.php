@@ -36,11 +36,9 @@ class AdminController extends BaseController
         if($request->get('movieName') !== '')
         {
             $movie = $request->get('movieName');
-            $query .= " AND commentaire.Film_titre LIKE '%$$movie%'";
+            $query .= " AND commentaire.Film_titre LIKE '%$movie%'";
             //array_push($params, "'%$movie%'"); // Ne fonctionne pas comme ça aucune idée de pourquoi
         }
-
-        return var_dump($query);
 
         $results = DB::select($query, $params);
         $model = array();
@@ -58,21 +56,15 @@ class AdminController extends BaseController
 
     public function refuseUserCommentaire(Request $request)
     {
-        $userRate = DB::select("SELECT note FROM note WHERE film_id = ?", [$request->get('movieId')]);
+        DB::delete("DELETE FROM commentaire WHERE id = ?", [$request->get('commentaireId')]);
 
-        if(!$userRate)
-            return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => -1]);
-
-        return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => $userRate[0]->note]);
+        return redirect('/admin');
     }
 
     public function acceptUserCommentaire(Request $request)
-    {
-        $userRate = DB::select("SELECT note FROM note WHERE film_id = ?", [$request->get('movieId')]);
+    {     
+        DB::update("UPDATE commentaire SET valide = 1 WHERE id = ?", [$request->get('commentaireId')]);
 
-        if(!$userRate)
-            return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => -1]);
-
-        return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => $userRate[0]->note]);
+        return redirect('/admin');
     }
 }
