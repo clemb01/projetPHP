@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\SiteCookie\FonctionsCookie;
+use App\Models\User;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 class Authenticate
@@ -35,10 +37,26 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
-        }
+        $encryptedLogin = $request->cookie('supersite_session');
+        //return var_dump($encryptedLogin);
 
+        if (empty($encryptedLogin))
+            return $next($request);
+ 
+        $login = FonctionsCookie::getSessionCookieValue($encryptedLogin);
+    
+        if (!empty($login)) {
+            $user = User::getUserByLogin($login);
+            if (!empty($user)) {
+                unset($user['stringPassword']);
+                $_SESSION['user'] = $user;
+                FonctionsCookie::setSessionCookie($login);
+            }
+            else {
+                FonctionsCookie::unsetSessionCookie();
+            }
+        }
+ 
         return $next($request);
     }
 }
