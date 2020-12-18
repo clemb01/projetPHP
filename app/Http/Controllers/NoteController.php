@@ -21,18 +21,25 @@ class NoteController extends BaseController
 
     public function getUserMovieRate(Request $request)
     {
-        $result = DB::select("SELECT * FROM note WHERE fk_user_id = ? AND film_id = ? LIMIT 1", [1, $request->get('movieId')]);
+        if(!empty($_SESSION['user']))
+        {
+            $result = DB::select("SELECT * FROM note WHERE fk_user_id = ? AND film_id = ? LIMIT 1", [1, $request->get('movieId')]);
 
-        if(count($result) > 0)
-            $userRate = new Note($result[0]);
+            if(count($result) > 0)
+                $userRate = new Note($result[0]);
+            else
+            {
+                $userRate = new Note(null);
+                $userRate->setFilm_Id($request->get('movieId'));
+                $userRate->setNote(-1);
+            }
+
+            return view('partial.movieUserRate', ['model' => $userRate]);
+        }
         else
         {
-            $userRate = new Note(null);
-            $userRate->setFilm_Id($request->get('movieId'));
-            $userRate->setNote(-1);
+            return "Vous devez etre connecté pour noter !";
         }
-
-        return view('partial.movieUserRate', ['model' => $userRate]);
     }
 
     // POST
