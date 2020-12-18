@@ -7,22 +7,18 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\SiteCookie\FonctionsCookie;
+use ParagonIE\Cookie\Cookie;
 
 class CookieController extends BaseController
 {
     public function loginAction(Request $request){
         
-        //$password = hash('sha256',$request->get('mdp_user'));
         $password = $request->get('mdp_user');
 
         $user = User::getUserByLogin($request->get('login_user'));
-        //$user = DB::select("SELECT * FROM user WHERE login = ? LIMIT 1", [$request->get('login_user')]);
-        
-        //return var_dump($user);
         
         if(!empty($user) && $user->getPassword() === $password){
-
-            //FonctionsCookie::setSessionCookie($user->getAttributeValue($user->getLogin()));
+            
             FonctionsCookie::setSessionCookie($user->getLogin());
             return redirect("/");
         }
@@ -30,5 +26,11 @@ class CookieController extends BaseController
         {
             return redirect("/");
         }
+
+    }
+
+    public function logoutAction(){
+        FonctionsCookie::unsetSessionCookie();
+        return redirect("/");
     }
 }
