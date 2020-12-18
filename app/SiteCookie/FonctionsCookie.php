@@ -6,7 +6,7 @@ use ParagonIE\Cookie\Cookie;
 use SebastianBergmann\Environment\Console;
 
 trait FonctionsCookie {
-
+    
     public static function setSessionCookie(string $value): Void {
         $cookie = new \ParagonIE\Cookie\Cookie('supersite_session');
         $cookie->setValue(FonctionsCookie::encryptCookieValue($value));
@@ -21,20 +21,15 @@ trait FonctionsCookie {
  
     public static function unsetSessionCookie(): Void {
         unset($_SESSION['user']);
-        //$cookie = \ParagonIE\Cookie\Session::get('supersite_session');
-        //$cookie->delete();
-        Cookie::setcookie('supersite_session', '', time() - 37000000);
+        $cookie = new \ParagonIE\Cookie\Cookie('supersite_session');
+        $cookie->setValue('');
+        $cookie->setHttpOnly(true);
+        $cookie->save();
+        $cookie->delete();
     }
  
     private static function encryptCookieValue(string $value): String {
-        $iv_size = openssl_cipher_iv_length('aes-256-ctr');
-        try {
-            $iv = random_bytes($iv_size);
-        } catch (\Exception $e) {
-            FonctionsCookie::debug_to_console($e);
-            die();
-        }
-        return openssl_encrypt($value, 'aes-256-ctr', '2B4D6251655468576D5A7134743777217A25432A462D4A614E635266556A586E', 0, $iv) . '|' . $iv;
+        return openssl_encrypt($value, 'aes-256-ctr', '2B4D6251655468576D5A7134743777217A25432A462D4A614E635266556A586E', 0, "dOwZC3KXXuUN0Wd\0") . '|' . "dOwZC3KXXuUN0Wd\0";
     }
  
     private static function decryptCookieValue(string $value): String {
