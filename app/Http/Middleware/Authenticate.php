@@ -6,6 +6,7 @@ use Closure;
 use App\SiteCookie\FonctionsCookie;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use ParagonIE\Cookie\Cookie;
 
 class Authenticate
 {
