@@ -31,8 +31,14 @@
                         </form>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right slices" id="TitreConnection">
-                    <li data-toggle='modal' data-target='#SeConnecter' class='nav-item active' onclick="" ><a class="btn btn-default" id="BtnLogin">Se connecter</a></li>
+                <ul class="nav navbar-nav navbar-right slices">
+                    @if(empty($_SESSION['user']))
+                        <li data-toggle='modal' data-target='#SeConnecter' class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnLogin">Se connecter</a></li>
+                        <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire">S'inscrire</a></li>
+                    @else
+                        <li class='nav-item active' href="#" ><a class="btn btn-default BtnDroit">{{ $_SESSION['user']->getLogin()}}</a></li>
+                        <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout"  id="BtnInscrire">Se deconnecter</a></li>
+                    @endif
                 </ul>
             </div>
             </div>
@@ -51,14 +57,13 @@
                         <h2 class="modal-title">Se connecter</h2>
                     </div>
                     <div class="modal-body" id="formulaire">
-                        <form class="Jumbotron">
+                        <form class="Jumbotron" action='/accueil/login' method="post">
                             <p><label class="">Login</label></p>
-                            <p><input type="text" value="" id="nom_user" required></p>
+                            <p><input type="text" value="" name="login_user" name="login_user" required></p>
                             <p><label class="">Mot de passe</label></p>
-                            <p><input type="password" value="" id="mdp_user" required></p>
+                            <p><input type="password" value="" id="mdp_user" name="mdp_user" required></p>
                             <p>
-                                <button type="submit" onclick="" class="btn btn-default" style="border:solid;">Se connecter</button>
-                                <button onclick="" class="btn btn-default" style="border: solid;">Créer un compte</button>
+                                <button type="submit" class="btn" style="border:solid;">Se connecter</button>
                             </p>
                         </form>
                     </div>
