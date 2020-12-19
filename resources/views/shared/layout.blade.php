@@ -50,7 +50,7 @@
                 <ul class="nav navbar-nav navbar-right slices">
                     @if(empty($_SESSION['user']))
                         <li data-toggle='modal' data-target='#SeConnecter' class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnLogin">Se connecter</a></li>
-                        <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire">S'inscrire</a></li>
+                        <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire" href="/formulaireUser">S'inscrire</a></li>
                     @else
                         <li class='nav-item active' href="#" ><a class="btn btn-default BtnDroit">{{ $_SESSION['user']->getLogin()}}</a></li>
                         <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout?returnUrl={{ $_SERVER['REQUEST_URI'] }}"  id="BtnInscrire">Se deconnecter</a></li>
