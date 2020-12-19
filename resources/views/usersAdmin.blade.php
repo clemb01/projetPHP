@@ -13,15 +13,12 @@
             <div class="col-3">
                 <input type="text" name="userName" class="form-control" placeholder="Nom utilisateur" value="">
             </div>
-            <div class="col-3">
-                <input type="text" name="movieName" class="form-control" placeholder="Nom du film" value="">
-            </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-2">Rechercher</button>
             </div>
         </div>
     </form>
-    <div id="commentaires">
+    <div id="utilisateurs">
     </div>
 </div>
 @endsection
@@ -30,10 +27,10 @@
 <script type='text/javascript'>
  $(document).ready(function() {
     $.ajax({
-		url : "/admin/getpendingcommentaire?userName=&movieName=",
+		url : "/admin/getusers?page=1&userName=",
 		type: "GET"
 	}).done(function(result){
-        $('#commentaires').html(result);
+        $('#utilisateurs').html(result);
 	})
       .fail(function(result){
           console.log(result);
@@ -42,17 +39,42 @@
     $('#searchForm').submit(function(event){
         event.preventDefault();
         var form_data = $(this).serialize();
-        getCommentaire(form_data);
+        getUsers(form_data);
     });
   });
 
-  function getCommentaire(filter = null) {
-      $.ajax({
-		url : "/admin/getpendingcommentaire",
-		type: "GET",
-		data : filter
+  function changePage(page) {
+    getUsers($('#searchForm').serialize(), page);
+  }
+
+  function editUser(userId, select, page = 1){
+    $.ajax({
+		url : "/admin/updateuserrole",
+		type: "POST",
+		data : {
+            userId,
+            role: select.options[select.selectedIndex].value
+        }
 	}).done(function(result){
-        $('#commentaires').html(result);
+        getUsers($('#searchForm').serialize(), page);
+	})
+      .fail(function(result){
+          console.log(result);
+      });
+  }
+
+  function getUsers(filter = null, page = 1) {
+    value = (filter.split("="))[1];
+
+      $.ajax({
+		url : "/admin/getusers",
+		type: "GET",
+		data : { 
+            userName: value,
+            page: page
+        }
+	}).done(function(result){
+        $('#utilisateurs').html(result);
 	})
       .fail(function(result){
           console.log(result);
