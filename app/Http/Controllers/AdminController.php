@@ -3,15 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use App\Models\CommentaireViewModel;
 
 class AdminController extends BaseController
 {
-    public function getAccueilAdmin()
+    public function CommentairesView(Request $request)
     {
-        return view('admin');
+        if(empty($_SESSION['user']) || $_SESSION['user']->getRole() !== "Admin")
+        {
+            return new Response("<h1>Unauthorized</h1>", 403);
+        }
+
+        return view('commentairesAdmin');
+    }
+
+    public function UsersView(Request $request)
+    {
+        if(empty($_SESSION['user']) || $_SESSION['user']->getRole() !== "Admin")
+        {
+            return new Response("<h1>Unauthorized</h1>", 403);
+        }
+
+        return view('usersAdmin');
     }
 
     public function getPendingCommentaire(Request $request)

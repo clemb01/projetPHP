@@ -26,11 +26,14 @@ class CookieController extends BaseController
         {
             return redirect("/");
         }
-
     }
 
-    public function logoutAction(){
+    public function logoutAction(Request $request){
         FonctionsCookie::unsetSessionCookie();
-        return redirect("/");
+
+        if(!empty($request->get('returnUrl')))
+            return Redirect($request->get('returnUrl'));
+        else
+            return Redirect('/accueil');
     }
 }

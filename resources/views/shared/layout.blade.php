@@ -10,21 +10,36 @@
     <link rel="stylesheet" href="/css/site.css">
 
     <title>Super site - @yield('title')</title>
+    <link rel="icon" href="/favicon.ico"/>
 </head>
 
 <body>
     @section('navbar')
     <header class="fixed-top" id="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/accueil">
+                <img src="/favicon.ico" width="30" height="30" alt="">
+            </a>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
                     </li>
+                    @if(!empty($_SESSION['user']) && $_SESSION['user']->getRole() === "Admin")
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin">Admin <span class="sr-only"></span></a>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle nav-link" style="height: 40px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administration
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="/admin/commentaires">Gestion des commentaires</a>
+                                <a class="dropdown-item" href="/admin/users">Gestion des utilisateurs</a>
+                            </div>
+                        </div>
                     </li>
-                    <li class="nav-item" style="margin-left: auto; margin-right: auto;">
+                    @endif
+                    <li class="nav-item" style="margin-left: 20px;">
                         <form class="form-inline my-2 my-lg-0" action="search" method="get">
                             <input class="form-control mr-sm-2" type="text" name="query" placeholder="Rechercher un film" required>
                             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Chercher</button>
@@ -37,10 +52,9 @@
                         <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire">S'inscrire</a></li>
                     @else
                         <li class='nav-item active' href="#" ><a class="btn btn-default BtnDroit">{{ $_SESSION['user']->getLogin()}}</a></li>
-                        <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout"  id="BtnInscrire">Se deconnecter</a></li>
+                        <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout?returnUrl={{ $_SERVER['REQUEST_URI'] }}"  id="BtnInscrire">Se deconnecter</a></li>
                     @endif
                 </ul>
-            </div>
             </div>
         </nav>
     </header>

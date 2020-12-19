@@ -25,7 +25,8 @@ $router->post('/rate/rate', 'NoteController@rateMovie');
 
 $router->post('/comms/commentaire', 'CommentaireController@saveComms');
 
-$router->get('/admin', 'AdminController@getAccueilAdmin');
+$router->get('/admin/commentaires', 'AdminController@CommentairesView');
+$router->get('/admin/users', 'AdminController@UsersView');
 $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommentaire');
 $router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
 $router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');
