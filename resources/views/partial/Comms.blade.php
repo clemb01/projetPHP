@@ -2,11 +2,24 @@
 @if(count($commentaires) > 0)
 <h3>Critiques</h3>
 @foreach( $commentaires as $commentaire)
-<div class="card">
+<div class="card mb-3">
     <div class="card-body">
-        <p class="card-text">{{$commentaire->Fk_User_Id()}}   <small>{{$commentaire->Date()}}</small></p>
-        <p class="card-text">{{$commentaire->Contenu()}}</p>
-        <!-- <small class="text-muted">Ecrit par <a href="/user/@comm.Username/profile" style="text-decoration: none;"><span class="font-weight-bold">@(Context.User.Identity.Name == comm.Username ?"You": comm.Username)</span></a> le @comm.Date.ToShortDateString() @comm.Date.ToShortTimeString()</small> -->
+        <div class="row no-gutters">
+            <div class="col-md-10">  
+                <p class="card-text"><strong>{{$commentaire->Login()}}</strong> <small>{{$commentaire->Date()}}</small></p>
+                <p class="card-text">{{$commentaire->Contenu()}}</p>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <button class="btn btn-primary" href="#" onclick="showModalComms({{$commentaire->Id()}})" >Modifier</button> 
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <button class="btn btn-secondary">Supprimer</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <br />

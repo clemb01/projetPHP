@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <a href="/movie/{{ $commentaire->FilmId() }}"><h5 class="card-title">{{ $commentaire->Film_titre() }}</h5></a>
                         <p class="card-text">{{ $commentaire->Contenu() }}</p>
-                    <p class="card-text"><small class="text-muted">Ecris par {{ $commentaire->Login() }} le {{ $commentaire->Date() }}</small></p>
+                    <p class="card-text"><small class="text-muted">Ecris par <strong>{{ $commentaire->Login() }}</strong> le {{ $commentaire->Date() }}</small></p>
                     </div>
                 </div>
                 <div class="col-md-2">

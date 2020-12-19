@@ -24,10 +24,14 @@ $router->get('/rate/getuserrate', 'NoteController@getUserMovieRate');
 $router->post('/rate/rate', 'NoteController@rateMovie');
 
 $router->post('/comms/commentaire', 'CommentaireController@saveComms');
+$router->get('/comms/getCommentaires', 'CommentaireController@getUserMovieComms');
+$router->get('/comms/getCommentaire', 'CommentaireController@getUserMovieComm');
+$router->post('/comms/Modif', 'CommentaireController@ModifComms');
+
 
 $router->get('/admin/commentaires', 'AdminController@CommentairesView');
 $router->get('/admin/users', 'AdminController@UsersView');
 $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommentaire');
-$router->get('/comms/getCommentaire', 'CommentaireController@getUserMovieComms');
 $router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
 $router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');
+

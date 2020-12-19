@@ -10,6 +10,8 @@ class Commentaire extends Model
     private $id;
     private $contenu;
     private $date;
+    private $nouveauContenu;
+    private $modifValide;
     private $valide;
     private $film_id;
     private $fk_userId;
@@ -62,6 +64,26 @@ class Commentaire extends Model
     public function setDate($value)
     {
         $this->date = $value;
+    }
+
+    public function NouveauContenu()
+    {
+        return $this->nouveauContenu;
+    }
+
+    public function setNouveauContenu($value)
+    {
+        $this->nouveauContenu = $value;
+    }
+
+    public function ModifValide()
+    {
+        return $this->modifValide;
+    }
+
+    public function setModifValide($value)
+    {
+        $this->modifValide = $value;
     }
 
     public function Valide()

@@ -90,6 +90,8 @@
             <form id="commentaire" action="/comms/commentaire" method="post">
                 <fieldset>
                     <input name="MovieId" value="{{$model->getMovie()->id}}" hidden />
+                    <input name="MovieName" value="{{$model->getMovie()->title}}" hidden />
+                    <input name="MovieLogo" value="{{$model->getMovie()->backdrop_path}}" hidden />
                     <div class="form-group">
                         <label for="commentaire">Message</label>
                         <textarea class="form-control" name="Message" id="commentaire" rows="3" required></textarea>
@@ -108,6 +110,27 @@
         </div>
     </div>
 </div>
+<div class="modal" id="ModalModif" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modification critique</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="ContenuModal">      
+        <form id="modifCommentaire" action="/comms/Modif" method="post">
+    
+        </form>  
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="modifCommentaire" class="btn btn-primary">Enregistrer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('script')
@@ -117,6 +140,22 @@
     getUserRate();
     getComms();
   });
+
+ function showModalComms(commentaireId) {
+    $.ajax({
+        url: "/comms/getCommentaire?comm_id=" + commentaireId,
+        type: "GET"
+    })
+    .done(function(result){
+        $('#modifCommentaire').html(result);
+        $('#ModalModif').modal("toggle");
+      })
+      .fail(function(result){
+          console.log(result);
+      });
+    
+    
+ }
 
   function getRate() {
       $.ajax({
@@ -172,7 +211,7 @@
 
   function getComms() {
       $.ajax({
-        url: "/comms/getCommentaire",
+        url: "/comms/getCommentaires",
         type: "GET",
         data: { movieId: <?php echo $model->getMovie()->id ?> }
       })
