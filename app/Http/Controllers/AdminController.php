@@ -56,6 +56,7 @@ class AdminController extends BaseController
             //array_push($params, "'%$movie%'"); // Ne fonctionne pas comme ça aucune idée de pourquoi
         }
 
+        $query .= " LIMIT 20";
         $results = DB::select($query, $params);
         $model = array();
 
@@ -74,13 +75,13 @@ class AdminController extends BaseController
     {
         DB::delete("DELETE FROM commentaire WHERE id = ?", [$request->get('commentaireId')]);
 
-        return redirect('/admin');
+        return redirect('/admin/commentaires');
     }
 
     public function acceptUserCommentaire(Request $request)
     {     
         DB::update("UPDATE commentaire SET valide = 1 WHERE id = ?", [$request->get('commentaireId')]);
 
-        return redirect('/admin');
+        return redirect('/admin/commentaires');
     }
 }
