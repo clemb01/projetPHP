@@ -15,11 +15,7 @@
 
 $router->get('/[accueil]', 'MovieController@getFilms');
 $router->post('/accueil/login', 'CookieController@loginAction');
-<<<<<<< HEAD
 $router->get('/accueil/logout', 'CookieController@logoutAction');
-=======
-$router->get('/accueil/logout', 'CookieController@SeDeconnecter');
->>>>>>> f45ce19c10b04c3804626099a0b8bcefed30d945
 $router->get('/movie/{id}', 'MovieController@getFilm');
 $router->get('/search', 'MovieController@search');
 
