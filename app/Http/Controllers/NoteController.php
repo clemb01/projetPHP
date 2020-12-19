@@ -23,7 +23,7 @@ class NoteController extends BaseController
     {
         if(!empty($_SESSION['user']))
         {
-            $result = DB::select("SELECT * FROM note WHERE fk_user_id = ? AND film_id = ? LIMIT 1", [1, $request->get('movieId')]);
+            $result = DB::select("SELECT * FROM note WHERE fk_user_id = ? AND film_id = ? LIMIT 1", [$_SESSION['user']->getId(), $request->get('movieId')]);
 
             if(count($result) > 0)
                 $userRate = new Note($result[0]);
@@ -45,13 +45,13 @@ class NoteController extends BaseController
     // POST
     public function rateMovie(Request $request)
     {
-        $userRate = DB::select("SELECT * FROM note WHERE fk_user_id = ? AND film_id = ?", [1, $request->get('movieId')]);
+        $userRate = DB::select("SELECT * FROM note WHERE fk_user_id = ? AND film_id = ?", [$_SESSION['user']->getId(), $request->get('movieId')]);
 
         if($userRate) {
-            DB::update("UPDATE note SET note = ? WHERE fk_user_id = ? AND film_id = ?", [$request->get('rating'), 1, $request->get('movieId')]);
+            DB::update("UPDATE note SET note = ? WHERE fk_user_id = ? AND film_id = ?", [$request->get('rating'), $_SESSION['user']->getId(), $request->get('movieId')]);
         }
         else {
-            DB::insert("INSERT INTO note (note, film_id, fk_user_id) values (?, ?, ?)", [$request->get('rating'), $request->get('movieId'), 1]);
+            DB::insert("INSERT INTO note (note, film_id, fk_user_id) values (?, ?, ?)", [$request->get('rating'), $request->get('movieId'), $_SESSION['user']->getId()]);
         }
     }
 }

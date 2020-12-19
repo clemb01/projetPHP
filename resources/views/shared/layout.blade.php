@@ -25,16 +25,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
                     </li>
-                    @if(!empty($_SESSION['user']) && $_SESSION['user']->getRole() === "Admin")
+                    @if(!empty($_SESSION['user']) && ($_SESSION['user']->getRole() === "Admin" || $_SESSION['user']->getRole() === "Modo" ))
                     <li class="nav-item">
                         <div class="dropdown">
                             <a class="dropdown-toggle nav-link" style="height: 40px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Administration
                             </a>
-
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="/admin/commentaires">Gestion des commentaires</a>
-                                <a class="dropdown-item" href="/admin/users">Gestion des utilisateurs</a>
+                                @if ($_SESSION['user']->getRole() === "Admin")                                
+                                    <a class="dropdown-item" href="/admin/users">Gestion des utilisateurs</a>
+                                @endif
                             </div>
                         </div>
                     </li>
