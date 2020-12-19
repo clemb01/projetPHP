@@ -15,13 +15,8 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <form method="post" action="/admin/acceptercommentaire">
-                        <input name="commentaireId" value="{{ $commentaire->Id() }}" hidden/>
-                        <div class="form-group">
-                            <button class="btn btn-primary">Accepter</button>
-                            <button class="btn btn-secondary" formaction="/admin/refusercommentaire">Refuser</button>
-                        </div>
-                    </form>
+                    <button class="btn btn-primary" onclick="accepterCommentaire({{ $commentaire->Id() }});">Accepter</button>
+                    <button class="btn btn-secondary" onclick="refuserCommentaire({{ $commentaire->Id() }});">Refuser</button>
                 </div>
             </div>
         </div>

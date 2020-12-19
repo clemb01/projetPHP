@@ -46,17 +46,37 @@
     });
   });
 
-  function getCommentaire(filter = null) {
-      $.ajax({
-		url : "/admin/getpendingcommentaire",
-		type: "GET",
-		data : filter
-	}).done(function(result){
+    function accepterCommentaire(commId) {
+        envoyerForm(commId, "/admin/acceptercommentaire");
+    }
+
+    function refuserCommentaire(commId) {
+        envoyerForm(commId, "/admin/refusercommentaire");
+    }
+
+    function envoyerForm(commId, url) {
+         $.ajax({
+            url : url,
+            type: "POST",
+            data : { commentaireId: commId }
+        }).done(function(result){
+            getCommentaire($('#searchForm').serialize());
+        }).fail(function(result){
+            console.log(result);
+        });   
+    }
+
+    function getCommentaire(filter = null) {
+        $.ajax({
+            url : "/admin/getpendingcommentaire",
+            type: "GET",
+            data : filter
+	    })
+    .done(function(result){
         $('#commentaires').html(result);
-	})
-      .fail(function(result){
-          console.log(result);
-      });
+	}).fail(function(result){
+        console.log(result);
+    });
   }
 </script>
 @endsection

@@ -25,16 +25,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
                     </li>
-                    @if(!empty($_SESSION['user']) && $_SESSION['user']->getRole() === "Admin")
+                    @if(!empty($_SESSION['user']) && ($_SESSION['user']->getRole() === "Admin" || $_SESSION['user']->getRole() === "Modo" ))
                     <li class="nav-item">
                         <div class="dropdown">
                             <a class="dropdown-toggle nav-link" style="height: 40px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Administration
                             </a>
-
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="/admin/commentaires">Gestion des commentaires</a>
-                                <a class="dropdown-item" href="/admin/users">Gestion des utilisateurs</a>
+                                @if ($_SESSION['user']->getRole() === "Admin")                                
+                                    <a class="dropdown-item" href="/admin/users">Gestion des utilisateurs</a>
+                                @endif
                             </div>
                         </div>
                     </li>
@@ -49,7 +50,7 @@
                 <ul class="nav navbar-nav navbar-right slices">
                     @if(empty($_SESSION['user']))
                         <li data-toggle='modal' data-target='#SeConnecter' class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnLogin">Se connecter</a></li>
-                        <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire">S'inscrire</a></li>
+                        <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire" href="/formulaireUser">S'inscrire</a></li>
                     @else
                         <li class='nav-item active' href="#" ><a class="btn btn-default BtnDroit">{{ $_SESSION['user']->getLogin()}}</a></li>
                         <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout?returnUrl={{ $_SERVER['REQUEST_URI'] }}"  id="BtnInscrire">Se deconnecter</a></li>

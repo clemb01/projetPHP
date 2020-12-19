@@ -13,11 +13,11 @@ class CookieController extends BaseController
 {
     public function loginAction(Request $request){
         
-        $password = $request->get('mdp_user');
+        $hashedPassword = hash('sha256', $request->get('mdp_user'));
 
         $user = User::getUserByLogin($request->get('login_user'));
         
-        if(!empty($user) && $user->getPassword() === $password){
+        if(!empty($user) && $user->getPassword() === $hashedPassword){
             
             FonctionsCookie::setSessionCookie($user->getLogin());
         }

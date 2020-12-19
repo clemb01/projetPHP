@@ -16,8 +16,14 @@
 $router->get('/[accueil]', 'MovieController@getFilms');
 $router->post('/accueil/login', 'CookieController@loginAction');
 $router->get('/accueil/logout', 'CookieController@logoutAction');
+
 $router->get('/movie/{id}', 'MovieController@getFilm');
+
 $router->get('/search', 'MovieController@search');
+
+$router->get('/formulaireUser', 'FormulaireUserController@getFormulaire');
+$router->post('/formulaireUser/register', 'FormulaireUserController@addUser');
+$router->get('/formulaireUser/checkLoginExist', 'FormulaireUserController@checkLoginExist');
 
 $router->get('/rate/getrate', 'NoteController@getMovieRate');
 $router->get('/rate/getuserrate', 'NoteController@getUserMovieRate');
