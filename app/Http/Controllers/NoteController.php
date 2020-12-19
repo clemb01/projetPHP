@@ -38,7 +38,7 @@ class NoteController extends BaseController
         }
         else
         {
-            return "Vous devez etre connecté pour noter !";
+            return "Vous devez etre <a href='#' data-toggle='modal' data-target='#SeConnecter' style='font-weight: bold; text-decoration: none;'>connecté</a> pour noter !";
         }
     }
 
