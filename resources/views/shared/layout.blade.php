@@ -72,6 +72,7 @@
                     </div>
                     <div class="modal-body" id="formulaire">
                         <form class="Jumbotron" action='/accueil/login' method="post">
+                            <input type="text" value="{{ $_SERVER['REQUEST_URI'] }}" name="returnUrl" hidden/>
                             <p><label class="">Login</label></p>
                             <p><input type="text" value="" name="login_user" name="login_user" required></p>
                             <p><label class="">Mot de passe</label></p>

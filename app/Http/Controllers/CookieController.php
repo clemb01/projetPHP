@@ -20,12 +20,12 @@ class CookieController extends BaseController
         if(!empty($user) && $user->getPassword() === $password){
             
             FonctionsCookie::setSessionCookie($user->getLogin());
-            return redirect("/");
         }
+
+        if(!empty($request->get('returnUrl')))
+            return Redirect($request->get('returnUrl'));
         else
-        {
-            return redirect("/");
-        }
+            return Redirect('/accueil');
     }
 
     public function logoutAction(Request $request){
