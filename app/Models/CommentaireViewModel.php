@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Commentaire extends Model
+class CommentaireViewModel extends Model
 {
     private $id;
     private $contenu;
@@ -15,6 +15,8 @@ class Commentaire extends Model
     private $fk_userId;
     private $film_titre;
     private $film_logo;
+    private $login;
+    private $note;
 
     public function __construct($donnees){
         if($donnees) 
@@ -112,5 +114,15 @@ class Commentaire extends Model
     public function setFilm_logo($value)
     {
         $this->Film_logo = $value;
+    }
+
+    public function Login()
+    {
+        return $this->login;
+    }
+
+    public function setLogin($value)
+    {
+        $this->login = $value;
     }
 }

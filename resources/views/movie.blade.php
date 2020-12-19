@@ -11,7 +11,7 @@
     $date .= $dateArray['year'];
 
     $hour = (int)($movie->runtime / 60) . "h";
-    $hour .= ($movie->runtime % 60) . "m";
+    $hour .= ($movie->runtime % 60) > 0 ? ($movie->runtime % 60) . "m" : "";
 ?>
 
 @section('content')
@@ -100,18 +100,11 @@
         </div>
         <div>
         <br />
-<<<<<<< HEAD
         
             
             <div id='comms'>
             </div> 
         
-=======
-            <h3>Critiques</h3>
-                <div id='comms'>
-
-                </div>
->>>>>>> 48eb37d3845c0fcddc49ad6f8b61bb33bd9b7557
         </div>
     </div>
 </div>

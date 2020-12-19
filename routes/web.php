@@ -14,6 +14,8 @@
 */
 
 $router->get('/[accueil]', 'MovieController@getFilms');
+$router->post('/accueil/login', 'CookieController@loginAction');
+$router->get('/accueil/logout', 'CookieController@logoutAction');
 $router->get('/movie/{id}', 'MovieController@getFilm');
 $router->get('/search', 'MovieController@search');
 
@@ -23,6 +25,9 @@ $router->post('/rate/rate', 'NoteController@rateMovie');
 
 $router->post('/comms/commentaire', 'CommentaireController@saveComms');
 
-$router->get('/admin', 'AdminController@getAccueilAdmin');
+$router->get('/admin/commentaires', 'AdminController@CommentairesView');
+$router->get('/admin/users', 'AdminController@UsersView');
 $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommentaire');
 $router->get('/comms/getCommentaire', 'CommentaireController@getUserMovieComms');
+$router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
+$router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');

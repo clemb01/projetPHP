@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class MovieModel
+class MovieViewModel
 {
     private $movie;
     private $trailer;

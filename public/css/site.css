@@ -1,3 +1,14 @@
+#avisToggle {
+  font-size: 20px; 
+  text-decoration: none;
+  color: #007bff;
+}
+
+#avisToggle:hover {
+  cursor: pointer;
+  color: #3f73aa;
+}
+
 .header.large.border.first {
   border-bottom: 1px solid rgba(20.20%, 20.78%, 19.22%, 1.00);
   background-position: right -200px top;
@@ -83,7 +94,6 @@
     color: red;
   }
 
-  #BtnLogin{
-    background-color: white;
-    
+  .BtnDroit{
+    color: white;
   }

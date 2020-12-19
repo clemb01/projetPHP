@@ -3,33 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
-use App\Models\Commentaire;
+use App\Models\CommentaireViewModel;
 
 class AdminController extends BaseController
 {
-    public function getAccueilAdmin()
+    public function CommentairesView(Request $request)
     {
-        return view('admin');
+        if(empty($_SESSION['user']) || $_SESSION['user']->getRole() !== "Admin")
+        {
+            return new Response("<h1>Unauthorized</h1>", 403);
+        }
+
+        return view('commentairesAdmin');
+    }
+
+    public function UsersView(Request $request)
+    {
+        if(empty($_SESSION['user']) || $_SESSION['user']->getRole() !== "Admin")
+        {
+            return new Response("<h1>Unauthorized</h1>", 403);
+        }
+
+        return view('usersAdmin');
     }
 
     public function getPendingCommentaire(Request $request)
     {
-        $query = "SELECT * FROM commentaire WHERE valide = 0";
+        $query = "SELECT commentaire.*, user.login, note.note
+                    FROM commentaire
+                    LEFT OUTER JOIN user
+                    ON commentaire.fk_user_id = user.id
+                    LEFT OUTER JOIN note
+                    ON commentaire.film_id = note.film_id
+                    WHERE valide = 0";
+
         $params = array();
 
         if($request->get('userName') !== '')
         {
             $user = $request->get('userName');
-            $query .= " AND fk_user_id LIKE '%$user%'";
+            $query .= " AND user.login LIKE '%$user%'";
             //array_push($params, "'%".$request->get('userName')."%'");
         }
 
         if($request->get('movieName') !== '')
         {
             $movie = $request->get('movieName');
-            $query .= " AND film_id LIKE '%$movie%'";
+            $query .= " AND commentaire.Film_titre LIKE '%$movie%'";
             //array_push($params, "'%$movie%'"); // Ne fonctionne pas comme ça aucune idée de pourquoi
         }
 
@@ -40,7 +63,7 @@ class AdminController extends BaseController
         {
             foreach($results as $result)
             {
-                array_push($model, new Commentaire($result));
+                array_push($model, new CommentaireViewModel($result));
             }
         }
 
@@ -49,21 +72,15 @@ class AdminController extends BaseController
 
     public function refuseUserCommentaire(Request $request)
     {
-        $userRate = DB::select("SELECT note FROM note WHERE film_id = ?", [$request->get('movieId')]);
+        DB::delete("DELETE FROM commentaire WHERE id = ?", [$request->get('commentaireId')]);
 
-        if(!$userRate)
-            return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => -1]);
-
-        return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => $userRate[0]->note]);
+        return redirect('/admin');
     }
 
     public function acceptUserCommentaire(Request $request)
-    {
-        $userRate = DB::select("SELECT note FROM note WHERE film_id = ?", [$request->get('movieId')]);
+    {     
+        DB::update("UPDATE commentaire SET valide = 1 WHERE id = ?", [$request->get('commentaireId')]);
 
-        if(!$userRate)
-            return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => -1]);
-
-        return view('partial.movieUserRate', ['movieId' => $request->get('movieId'), 'note' => $userRate[0]->note]);
+        return redirect('/admin');
     }
 }

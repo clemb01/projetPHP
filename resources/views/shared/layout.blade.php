@@ -10,28 +10,51 @@
     <link rel="stylesheet" href="/css/site.css">
 
     <title>Super site - @yield('title')</title>
+    <link rel="icon" href="/favicon.ico"/>
 </head>
 
 <body>
     @section('navbar')
     <header class="fixed-top" id="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="/accueil">
+                <img src="/favicon.ico" width="30" height="30" alt="">
+            </a>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item" style="margin-left: auto; margin-right: auto;">
+                    @if(!empty($_SESSION['user']) && $_SESSION['user']->getRole() === "Admin")
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle nav-link" style="height: 40px;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administration
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="/admin/commentaires">Gestion des commentaires</a>
+                                <a class="dropdown-item" href="/admin/users">Gestion des utilisateurs</a>
+                            </div>
+                        </div>
+                    </li>
+                    @endif
+                    <li class="nav-item" style="margin-left: 20px;">
                         <form class="form-inline my-2 my-lg-0" action="search" method="get">
                             <input class="form-control mr-sm-2" type="text" name="query" placeholder="Rechercher un film" required>
                             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Chercher</button>
                         </form>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right slices" id="TitreConnection">
-                    <li data-toggle='modal' data-target='#SeConnecter' class='nav-item active' onclick="" ><a class="btn btn-default" id="BtnLogin">Se connecter</a></li>
+                <ul class="nav navbar-nav navbar-right slices">
+                    @if(empty($_SESSION['user']))
+                        <li data-toggle='modal' data-target='#SeConnecter' class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnLogin">Se connecter</a></li>
+                        <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire">S'inscrire</a></li>
+                    @else
+                        <li class='nav-item active' href="#" ><a class="btn btn-default BtnDroit">{{ $_SESSION['user']->getLogin()}}</a></li>
+                        <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout?returnUrl={{ $_SERVER['REQUEST_URI'] }}"  id="BtnInscrire">Se deconnecter</a></li>
+                    @endif
                 </ul>
-            </div>
             </div>
         </nav>
     </header>
@@ -48,14 +71,14 @@
                         <h2 class="modal-title">Se connecter</h2>
                     </div>
                     <div class="modal-body" id="formulaire">
-                        <form class="Jumbotron">
+                        <form class="Jumbotron" action='/accueil/login' method="post">
+                            <input type="text" value="{{ $_SERVER['REQUEST_URI'] }}" name="returnUrl" hidden/>
                             <p><label class="">Login</label></p>
-                            <p><input type="text" value="" id="nom_user" required></p>
+                            <p><input type="text" value="" name="login_user" name="login_user" required></p>
                             <p><label class="">Mot de passe</label></p>
-                            <p><input type="password" value="" id="mdp_user" required></p>
+                            <p><input type="password" value="" id="mdp_user" name="mdp_user" required></p>
                             <p>
-                                <button type="submit" onclick="" class="btn btn-default" style="border:solid;">Se connecter</button>
-                                <button onclick="" class="btn btn-default" style="border: solid;">Créer un compte</button>
+                                <button type="submit" class="btn" style="border:solid;">Se connecter</button>
                             </p>
                         </form>
                     </div>
