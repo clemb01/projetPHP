@@ -92,7 +92,7 @@ class AdminController extends BaseController
                     ON commentaire.fk_user_id = user.id
                     LEFT OUTER JOIN note
                     ON commentaire.film_id = note.film_id
-                    WHERE valide = 0";
+                    WHERE (valide = 0 OR valideModif = 1)";
 
         $params = array();
 
@@ -127,11 +127,21 @@ class AdminController extends BaseController
 
     public function refuseUserCommentaire(Request $request)
     {
-        DB::delete("DELETE FROM commentaire WHERE id = ?", [$request->get('commentaireId')]);
+        if($request->get('isModif') == 'true'){
+            DB::update("UPDATE commentaire SET nouveauContenu = NULL, valideModif = 0 WHERE id = ?", [$request->get('commentaireId')]);
+        }
+        else {
+            DB::delete("DELETE FROM commentaire WHERE id = ?", [$request->get('commentaireId')]);
+        }
     }
 
     public function acceptUserCommentaire(Request $request)
-    {     
-        DB::update("UPDATE commentaire SET valide = 1 WHERE id = ?", [$request->get('commentaireId')]);
+    {    
+        if($request->get('isModif') == 'true'){
+            DB::update("UPDATE commentaire SET contenu = nouveauContenu, nouveauContenu = NULL, valideModif = 0 WHERE id = ?", [$request->get('commentaireId')]);
+        }
+        else {
+            DB::update("UPDATE commentaire SET valide = 1 WHERE id = ?", [$request->get('commentaireId')]);
+        } 
     }
 }

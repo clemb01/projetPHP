@@ -91,7 +91,7 @@
                 <fieldset>
                     <input name="MovieId" value="{{$model->getMovie()->id}}" hidden />
                     <input name="MovieName" value="{{$model->getMovie()->title}}" hidden />
-                    <input name="MovieLogo" value="{{$model->getMovie()->backdrop_path}}" hidden />
+                    <input name="MovieLogo" value="{{$model->getMovie()->poster_path}}" hidden />
                     <div class="form-group">
                         <label for="commentaire">Message</label>
                         <textarea class="form-control" name="Message" id="commentaire" rows="3" required></textarea>

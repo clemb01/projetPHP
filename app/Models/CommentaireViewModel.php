@@ -78,12 +78,12 @@ class CommentaireViewModel extends Model
         $this->nouveauContenu = $value;
     }
 
-    public function ModifValide()
+    public function ValideModif()
     {
         return $this->modifValide;
     }
 
-    public function setModifValide($value)
+    public function setValideModif($value)
     {
         $this->modifValide = $value;
     }

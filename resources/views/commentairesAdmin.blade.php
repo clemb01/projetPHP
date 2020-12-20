@@ -46,19 +46,19 @@
     });
   });
 
-    function accepterCommentaire(commId) {
-        envoyerForm(commId, "/admin/acceptercommentaire");
+    function accepterCommentaire(commId, isModif) {
+        envoyerForm(commId, isModif, "/admin/acceptercommentaire");
     }
 
-    function refuserCommentaire(commId) {
-        envoyerForm(commId, "/admin/refusercommentaire");
+    function refuserCommentaire(commId, isModif) {
+        envoyerForm(commId, isModif, "/admin/refusercommentaire");
     }
 
-    function envoyerForm(commId, url) {
+    function envoyerForm(commId, isModif, url) {
          $.ajax({
             url : url,
             type: "POST",
-            data : { commentaireId: commId }
+            data : { commentaireId: commId, isModif: isModif }
         }).done(function(result){
             getCommentaire($('#searchForm').serialize());
         }).fail(function(result){
