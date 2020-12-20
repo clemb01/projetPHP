@@ -9,6 +9,7 @@
                 <p class="card-text"><strong>{{$commentaire->Login()}}</strong> <small>{{$commentaire->Date()}}</small></p>
                 <p class="card-text">{{$commentaire->Contenu()}}</p>
             </div>
+            @if(!empty($_SESSION['user']) && ($_SESSION['user']->getRole() === "admin" || $_SESSION['user']->getRole() === "modo" ))
             <div class="col-md-1">
                 <div class="form-group">
                     <button class="btn btn-primary" href="#" onclick="showModalComms({{$commentaire->Id()}})" >Modifier</button> 
@@ -19,6 +20,7 @@
                     <button class="btn btn-secondary">Supprimer</button>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>
