@@ -14,8 +14,10 @@
                         <p class="card-text"><small class="text-muted">Ancien commentaire</small></p>
                         <p class="card-text">{{ $commentaire->Contenu() }}</p>
                         <p class="card-text"><small class="text-muted">Nouveau commentaire</small></p>
-                        @endif
                         <p class="card-text">{{ $commentaire->NouveauContenu() }}</p>
+                        @else
+                        <p class="card-text">{{ $commentaire->Contenu() }}</p>
+                        @endif
                     <p class="card-text"><small class="text-muted">Ecris par <strong>{{ $commentaire->Login() }}</strong> le {{ $commentaire->Date() }}</small></p>
                     </div>
                 </div>
