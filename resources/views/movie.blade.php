@@ -83,9 +83,10 @@
                 @endif
             </ul>
         </div>
-        <br />
+        <br id="commentaire"/>
+        @if (!empty($_SESSION['user']))
         <div>
-        <br />
+        <br />        
             <h3>Rédiger une critique</h3>
             <form id="commentaire" action="/comms/commentaire" method="post">
                 <fieldset>
@@ -100,6 +101,12 @@
                 </fieldset>
             </form>
         </div>
+        @else
+        <br />
+        <div>
+            <h3>Vous devez etre <a href='#' data-toggle='modal' data-target='#SeConnecter' style='font-weight: bold; text-decoration: none;'>connecté</a> pour rédiger une critique !</h3>
+        </div>
+        @endif
         <div>
         <br />
         
@@ -131,6 +138,29 @@
     </div>
   </div>
 </div>
+
+<div class="modal" id="ModalSupp" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Supprimer la critique</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form id="suppCommentaire" action="/comms/suppCommentaire" method="post">
+    
+      </form>
+      <p>Voulez-vous supprimer cette critique ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="suppCommentaire" class="btn btn-primary">Oui</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('script')
@@ -153,8 +183,11 @@
       .fail(function(result){
           console.log(result);
       });
-    
-    
+ }
+
+ function showModalCommsSupp(commentaireId) {
+    $('#suppCommentaire').html("<input name='comm_id' value='"+ commentaireId +"' hidden/> <input name='MovieId' value='{{$movie->id}}' hidden/>");
+    $('#ModalSupp').modal("toggle");
  }
 
   function getRate() {

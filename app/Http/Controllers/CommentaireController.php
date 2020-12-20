@@ -55,4 +55,13 @@ class CommentaireController extends BaseController
         return redirect("/movie/$id");
     }
 
+    public function suppComms(request $request)
+    {
+        DB::delete("DELETE FROM commentaire WHERE id = ?", [$request->get("comm_id")]);
+
+        $id = $request->get('MovieId');
+
+        return redirect("/movie/$id");
+    }
+
 }
