@@ -41,7 +41,7 @@
                     </li>
                     @endif
                     <li class="nav-item" style="margin-left: 20px;">
-                        <form class="form-inline my-2 my-lg-0" action="search" method="get">
+                        <form class="form-inline my-2 my-lg-0" action="/search" method="get">
                             <input class="form-control mr-sm-2" type="text" name="query" placeholder="Rechercher un film" required>
                             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Chercher</button>
                         </form>
