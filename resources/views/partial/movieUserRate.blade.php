@@ -20,7 +20,7 @@ function checkValue($expected, $note){
         <label aria-label="2 stars" class="rating__label" for="rating-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
         <input class="rating__input" name="rating" id="rating-20" value="2" type="radio" {{ checkValue(2, $model->Note()) }}>
         <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-        <input class="rating__input" name="rating" id="rating-25" value="2.5" type="radio" {{ $model->Note() == -1 ? "checked" : checkValue(2.5, $model->Note()) }}>
+        <input class="rating__input" name="rating" id="rating-25" value="2.5" type="radio" {{ checkValue(2.5, $model->Note()) }}>
         <label aria-label="3 stars" class="rating__label" for="rating-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
         <input class="rating__input" name="rating" id="rating-30" value="3" type="radio" {{ checkValue(3, $model->Note()) }}>
         <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
