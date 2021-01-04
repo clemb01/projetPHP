@@ -68,18 +68,18 @@
         <div class="modal fade" id="SeConnecter" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background-color: #4E6EA9; color: white;">
                         <h2 class="modal-title">Se connecter</h2>
                     </div>
                     <div class="modal-body" id="formulaire">
                         <form class="Jumbotron" action='/accueil/login' method="post">
                             <input type="text" value="{{ $_SERVER['REQUEST_URI'] }}" name="returnUrl" hidden/>
                             <p><label class="">Login</label></p>
-                            <p><input type="text" value="" name="login_user" name="login_user" required></p>
+                            <p><input type="text" class="form-control" value="" name="login_user" name="login_user" required></p>
                             <p><label class="">Mot de passe</label></p>
-                            <p><input type="password" value="" id="mdp_user" name="mdp_user" required></p>
+                            <p><input type="password" class="form-control" value="" id="mdp_user" name="mdp_user" required></p>
                             <p>
-                                <button type="submit" class="btn" style="border:solid;">Se connecter</button>
+                                <button type="submit" class="btn btn-success">Se connecter</button>
                             </p>
                         </form>
                     </div>

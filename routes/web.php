@@ -33,6 +33,7 @@ $router->post('/comms/commentaire', 'CommentaireController@saveComms');
 $router->get('/comms/getCommentaires', 'CommentaireController@getUserMovieComms');
 $router->get('/comms/getCommentaire', 'CommentaireController@getUserMovieComm');
 $router->post('/comms/Modif', 'CommentaireController@ModifComms');
+$router->post('/comms/suppCommentaire', 'CommentaireController@suppComms');
 
 
 $router->get('/admin/commentaires', 'AdminController@CommentairesView');
