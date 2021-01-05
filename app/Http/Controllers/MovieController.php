@@ -171,18 +171,18 @@ class MovieController extends BaseController
 
     public function advancedSearch(Request $request)
     {
-        $query = $request->get('query');
+        $query = $request->get('query') ?? "";
         $page = $request->get('page') ? $request->get('page') : 1;
         $annee = $request->get('releaseYear') ? "&primary_release_year=" . $request->get('releaseYear') : "";
 
         $query = trim($query);
 
-        $editedQuery = str_replace(" ", "+", $query);
+        $editedQuery = $query == "" ? "" : "&query=" . str_replace(" ", "+", $query);
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "$this->baseAPIUrl/search/movie?api_key=$this->apiKey&language=fr-FR&query=$editedQuery&page=$page&include_adult=false" . $annee ?? '',
+            CURLOPT_URL => "$this->baseAPIUrl/search/movie?api_key=$this->apiKey&language=fr-FR$editedQuery&page=$page&include_adult=false$annee",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,

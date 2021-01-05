@@ -8,7 +8,7 @@
         <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="query">Recherche</label>
-                <input type="text" class="form-control" id="query" name="query" placeholder="Film" value="{{ $model->Query() }}">
+                <input type="text" class="form-control" id="query" name="query" placeholder="Film" value="{{ $model->Query() }}" required>
             </div>
             <div class="form-group col-md-5">
                 <label for="release_year">Année de sortie</label>
