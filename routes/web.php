@@ -20,6 +20,7 @@ $router->get('/accueil/logout', 'CookieController@logoutAction');
 $router->get('/movie/{id}', 'MovieController@getFilm');
 
 $router->get('/search', 'MovieController@search');
+$router->get('/advancedsearch', 'MovieController@advancedSearch');
 
 $router->get('/formulaireUser', 'FormulaireUserController@getFormulaire');
 $router->post('/formulaireUser/register', 'FormulaireUserController@addUser');

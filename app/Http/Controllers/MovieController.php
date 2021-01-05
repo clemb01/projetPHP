@@ -173,7 +173,7 @@ class MovieController extends BaseController
     {
         $query = $request->get('query');
         $page = $request->get('page') ? $request->get('page') : 1;
-        $annee = $request->get('annee') ?? null;
+        $annee = $request->get('releaseYear') ? "&primary_release_year=" . $request->get('releaseYear') : "";
 
         $query = trim($query);
 
@@ -207,6 +207,7 @@ class MovieController extends BaseController
 
         $model = new SearchViewModel($result);
         $model->setQuery($query);
+        $model->setReleaseYear($request->get('releaseYear'));
 
         return view('search', ['model' => $model]);
     }

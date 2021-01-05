@@ -5,24 +5,24 @@ namespace App\Models;
 class SearchViewModel
 {
     private $query;
+    private $releaseYear;
     private $page;
     private $results;
     private $total_results;
     private $total_pages;
 
-    public function __construct($donnees){
-        if($donnees) 
+    public function __construct($donnees)
+    {
+        if ($donnees)
             $this->hydrate($donnees);
     }
 
     public function hydrate($donnees)
     {
-        foreach($donnees as $key => $value)
-        {
-            $method = 'set'.ucfirst($key);
+        foreach ($donnees as $key => $value) {
+            $method = 'set' . ucfirst($key);
 
-            if(method_exists($this, $method))
-            {
+            if (method_exists($this, $method)) {
                 $this->$method($value);
             }
         }
@@ -38,6 +38,16 @@ class SearchViewModel
         $this->query = $value;
     }
 
+    public function ReleaseYear()
+    {
+        return $this->releaseYear;
+    }
+
+    public function setReleaseYear($value)
+    {
+        $this->releaseYear = $value;
+    }
+
     public function Page()
     {
         return $this->page;
@@ -50,26 +60,25 @@ class SearchViewModel
 
     public function Results()
     {
-        return $this->result;
+        return $this->results;
     }
 
     public function setResults($value)
     {
-        $this->result = array();
-        foreach($value as $data)
-        {
-            array_push($this->result, new SearchResultModel($data));
+        $this->results = array();
+        foreach ($value as $data) {
+            array_push($this->results, new SearchResultModel($data));
         }
     }
 
     public function Total_results()
     {
-        return $this->total_result;
+        return $this->total_results;
     }
 
     public function setTotal_results($value)
     {
-        $this->total_result = $value;
+        $this->total_results = $value;
     }
 
     public function Total_pages()
@@ -94,19 +103,18 @@ class SearchResultModel
     private $title;
     private $backdrop_path;
 
-    public function __construct($donnees){
-        if($donnees) 
+    public function __construct($donnees)
+    {
+        if ($donnees)
             $this->hydrate($donnees);
     }
 
     public function hydrate($donnees)
     {
-        foreach($donnees as $key => $value)
-        {
-            $method = 'set'.ucfirst($key);
+        foreach ($donnees as $key => $value) {
+            $method = 'set' . ucfirst($key);
 
-            if(method_exists($this, $method))
-            {
+            if (method_exists($this, $method)) {
                 $this->$method($value);
             }
         }

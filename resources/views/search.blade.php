@@ -4,20 +4,24 @@
 
 @section('content')
 <div class="jumbotron">
-    <h1 class="display-4">Résultat pour "{{ $model->Query() }}"</h1>
+    <form action="/advancedsearch" method="get">
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="query">Recherche</label>
+                <input type="text" class="form-control" id="query" name="query" placeholder="Film" value="{{ $model->Query() }}">
+            </div>
+            <div class="form-group col-md-5">
+                <label for="release_year">Année de sortie</label>
+                <input type="text" class="form-control" id="release_year" name="releaseYear" value="{{ $model->ReleaseYear() }}">
+            </div>
+            <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-primary" style="margin-top: 32px;">Recherche avancée</button>
+            </div>
+        </div>
+    </form>
     <h1 class="display-4">Nombre de résultats: "{{ $model->Total_results() }}"</h1>
     <div class="text-center justify-content-center">
-        <p>
-            @if ($model->Page() > 1)
-            <a href="search?query={{ $model->Query() }}&page=1">Début</a> -
-            <a href="search?query={{ $model->Query() }}&page={{ $model->Page() > 1 ? $model->Page() - 1 : 1 }}">Précédent</a>
-            @endif
-            - Page {{ $model->Page() }} -
-            @if ($model->Page() < $model->total_pages())
-            <a href="search?query={{ $model->Query() }}&page={{ $model->Page() < $model->total_pages() ? $model->Page() + 1 : $model->total_pages() }}">Suivant</a> -
-            <a href="search?query={{ $model->Query() }}&page={{ $model->total_pages() }}">Fin</a>
-            @endif
-        </p>
+        @include('partial.pagination', ['model' => $model])
     </div>
     <hr class="my-4">
     <div id="search-container">
@@ -29,17 +33,7 @@
     </div>
     <hr class="my-4">
     <div class="text-center justify-content-center">
-        <p>
-            @if ($model->Page() > 1)
-            <a href="search?query={{ $model->Query() }}&page=1">Début</a> -
-            <a href="search?query={{ $model->Query() }}&page={{ $model->Page() > 1 ? $model->Page() - 1 : 1 }}">Précédent</a>
-            @endif
-            - Page {{ $model->Page() }} -
-            @if ($model->Page() < $model->total_pages())
-            <a href="search?query={{ $model->Query() }}&page={{ $model->Page() < $model->total_pages() ? $model->Page() + 1 : $model->total_pages() }}">Suivant</a> -
-            <a href="search?query={{ $model->Query() }}&page={{ $model->total_pages() }}">Fin</a>
-            @endif
-        </p>
+        @include('partial.pagination', ['model' => $model])
     </div>
         @else
     <p>
