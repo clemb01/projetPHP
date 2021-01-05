@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('title', 'test titre')
+@section('title', 'Accueil')
 
 @section('content')
 <div class="jumbotron"><h1 class="display-4">Derniers films</h1>
