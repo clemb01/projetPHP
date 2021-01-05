@@ -8,7 +8,7 @@ use App\Models\SearchViewModel;
 use App\Models\MovieViewModel;
 
 class MovieController extends BaseController
-{  
+{
     private $baseAPIUrl = "https://api.themoviedb.org/3";
     private $apiKey = "92db563e1ec1286dac46e4ee14889fcf";
 
@@ -36,15 +36,14 @@ class MovieController extends BaseController
 
         curl_close($curl);
 
-        if(!$response)
-        {
+        if (!$response) {
             return view('accueil', ['response' => $err]);
         }
 
         $result = json_decode($response);
 
         $model = new SearchViewModel($result);
-        
+
         return view('accueil', ['model' => $model]);
     }
 
@@ -72,8 +71,7 @@ class MovieController extends BaseController
 
         curl_close($curl);
 
-        if(!$response)
-        {
+        if (!$response) {
             return view('movie', ['model' => $err]);
         }
 
@@ -99,11 +97,10 @@ class MovieController extends BaseController
 
         curl_close($curl);
 
-        if($response)
-        {
+        if ($response) {
             $model->setTrailer(json_decode($response));
         }
-        
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -124,8 +121,7 @@ class MovieController extends BaseController
 
         curl_close($curl);
 
-        if($response)
-        {
+        if ($response) {
             $model->setCast(json_decode($response));
         }
 
@@ -161,8 +157,49 @@ class MovieController extends BaseController
 
         curl_close($curl);
 
-        if(!$response)
-        {
+        if (!$response) {
+            return view('movie', ['model' => $err]);
+        }
+
+        $result = json_decode($response);
+
+        $model = new SearchViewModel($result);
+        $model->setQuery($query);
+
+        return view('search', ['model' => $model]);
+    }
+
+    public function advancedSearch(Request $request)
+    {
+        $query = $request->get('query');
+        $page = $request->get('page') ? $request->get('page') : 1;
+        $annee = $request->get('annee') ?? null;
+
+        $query = trim($query);
+
+        $editedQuery = str_replace(" ", "+", $query);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "$this->baseAPIUrl/search/movie?api_key=$this->apiKey&language=fr-FR&query=$editedQuery&page=$page&include_adult=false" . $annee ?? '',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "cache-control: no-cache"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if (!$response) {
             return view('movie', ['model' => $err]);
         }
 

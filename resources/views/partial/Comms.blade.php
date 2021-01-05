@@ -1,4 +1,3 @@
-
 @if(count($commentaires) > 0)
 <h3>Critiques</h3>
 @foreach( $commentaires as $commentaire)
