@@ -10,11 +10,11 @@
         <p>
             @if ($model->Page() > 1)
             <a href="/accueil?page=1">Début</a> -
-            <a href="/accueil?page={{ $model->Page() > 1 ? $model->Page() - 1 : 1 }}">Précédent</a>
+            <a href="/accueil?page={{ $model->Page() > 1 ? $model->Page() - 1 : 1 }}">Précédent</a> -
             @endif
-            - Page {{ $model->Page() }} -
+            Page {{ $model->Page() }}
             @if ($model->Page() < $model->Total_pages())
-            <a href="/accueil?page={{ $model->Page() < $model->Total_pages() ? $model->Page() + 1 : $model->Total_pages() }}">Suivant</a> -
+            - <a href="/accueil?page={{ $model->Page() < $model->Total_pages() ? $model->Page() + 1 : $model->Total_pages() }}">Suivant</a> -
             <a href="/accueil?page={{ $model->Total_pages() }}">Fin</a>
             @endif
         </p>
@@ -32,11 +32,11 @@
         <p>
             @if ($model->Page() > 1)
             <a href="/accueil?page=1">Début</a> -
-            <a href="/accueil?page={{ $model->Page() > 1 ? $model->Page() - 1 : 1 }}">Précédent</a>
+            <a href="/accueil?page={{ $model->Page() > 1 ? $model->Page() - 1 : 1 }}">Précédent</a> -
             @endif
-            - Page {{ $model->Page() }} -
+            Page {{ $model->Page() }}
             @if ($model->Page() < $model->Total_pages())
-            <a href="/accueil?page={{ $model->Page() < $model->Total_pages() ? $model->Page() + 1 : $model->Total_pages() }}">Suivant</a> -
+            - <a href="/accueil?page={{ $model->Page() < $model->Total_pages() ? $model->Page() + 1 : $model->Total_pages() }}">Suivant</a> -
             <a href="/accueil?page={{ $model->Total_pages() }}">Fin</a>
             @endif
         </p>

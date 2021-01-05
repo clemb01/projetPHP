@@ -53,7 +53,7 @@
                         <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire" href="/formulaireUser">S'inscrire</a></li>
                     @else
                         <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/profil">{{ $_SESSION['user']->getLogin()}}</a></li>
-                        <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout?returnUrl={{ $_SERVER['REQUEST_URI'] }}"  id="BtnInscrire">Se deconnecter</a></li>
+                        <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout?returnUrl={{ $_SERVER['REQUEST_URI'] }}"  id="BtnInscrire">Se déconnecter</a></li>
                     @endif
                 </ul>
             </div>
