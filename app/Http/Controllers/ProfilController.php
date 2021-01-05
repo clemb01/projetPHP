@@ -24,4 +24,13 @@ class ProfilController extends BaseController
         }
         
     }
+
+    public function MakeAnonymeUser(Request $request)
+    {
+        $query = "UPDATE user SET login = 'UtilisateurSupprimé" . date("Y-m-d H:i:s"). "', nom = '', prenom = '', dateN = '2000-01-01' WHERE login = ?";
+
+        DB::update($query, [$_SESSION['user']->getLogin()]);
+
+        return redirect('/accueil');
+    }
 }

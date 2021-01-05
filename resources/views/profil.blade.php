@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('title', 'Formulaire')
+@section('title', 'profil')
 
 @section('content')
 <div class="jumbotron">
@@ -40,8 +40,12 @@
         <div class="row">
             <div class="col-md-3 field-label-responsive">
                 <button type="submit" class="btn btn-success">Modifier</button>
-                <button type="submit" class="btn btn-danger">Supprimer</button>
             </div>
+            <form action='profil/gestionprofil' method="post">
+                <div class="col-md-3 field-label-responsive">   
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
