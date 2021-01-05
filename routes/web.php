@@ -35,7 +35,6 @@ $router->get('/comms/getCommentaire', 'CommentaireController@getUserMovieComm');
 $router->post('/comms/Modif', 'CommentaireController@ModifComms');
 $router->post('/comms/suppCommentaire', 'CommentaireController@suppComms');
 
-
 $router->get('/admin/commentaires', 'AdminController@CommentairesView');
 $router->get('/admin/users', 'AdminController@UsersView');
 $router->get('/admin/getusers', 'AdminController@getUsers');
@@ -43,4 +42,3 @@ $router->post('/admin/updateuserrole', 'AdminController@updateUserRole');
 $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommentaire');
 $router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
 $router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');
-
