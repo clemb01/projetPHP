@@ -11,9 +11,17 @@ class ProfilController extends BaseController
 { 
     public function getProfil()
     {
-        $result = DB::select("SELECT * FROM user WHERE login = ?",[$_SESSION['user']->getLogin()]);
-        //return var_dump($result);
-        $user = new User($result[0]);
-        return view('profil',['user' => $user]);
+        if(empty($_SESSION['user']))
+        {
+            return redirect('/accueil');
+        }
+        else
+        {
+            $result = DB::select("SELECT * FROM user WHERE login = ?",[$_SESSION['user']->getLogin()]);
+            //return var_dump($result);
+            $user = new User($result[0]);
+            return view('profil',['user' => $user]);
+        }
+        
     }
 }
