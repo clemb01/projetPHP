@@ -3,14 +3,13 @@
 namespace App\SiteCookie;
 
 use ParagonIE\Cookie\Cookie;
-use SebastianBergmann\Environment\Console;
 
 trait FonctionsCookie
 {
 
     public static function setSessionCookie(string $value): Void
     {
-        $cookie = new \ParagonIE\Cookie\Cookie('supersite_session');
+        $cookie = new Cookie('supersite_session');
         $cookie->setValue(FonctionsCookie::encryptCookieValue($value));
         $cookie->setMaxAge(3600 * 24 * 365);
         $cookie->setHttpOnly(true);
@@ -25,7 +24,7 @@ trait FonctionsCookie
     public static function unsetSessionCookie(): Void
     {
         unset($_SESSION['user']);
-        $cookie = new \ParagonIE\Cookie\Cookie('supersite_session');
+        $cookie = new Cookie('supersite_session');
         $cookie->setValue('');
         $cookie->setHttpOnly(true);
         $cookie->save();
