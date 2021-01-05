@@ -4,9 +4,14 @@
 <div class="card mb-3">
     <div class="card-body">
         <div class="row no-gutters">
-            <div class="col-md-10">  
+            <div class="col-md-10"> 
+            @if(str_contains($commentaire->Login(),'UtilisateurSupprimé'))
+                <p class="card-text"><strong>Utilisateur Supprimé</strong> <small>{{$commentaire->Date()}}</small></p>
+                <p class="card-text">{{$commentaire->Contenu()}}</p>
+            @else
                 <p class="card-text"><strong>{{$commentaire->Login()}}</strong> <small>{{$commentaire->Date()}}</small></p>
                 <p class="card-text">{{$commentaire->Contenu()}}</p>
+            @endif
             </div>
             @if(!empty($_SESSION['user']))
             @if($_SESSION['user']->getRole() === "admin" || $_SESSION['user']->getRole() === "modo" || $_SESSION['user']->getLogin() === $commentaire->Login())

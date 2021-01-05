@@ -41,7 +41,7 @@
             <div class="col-md-3 field-label-responsive">
                 <button type="submit" class="btn btn-success">Modifier</button>
             </div>
-            <form action='profil/gestionprofil' method="post">
+            <form id="SupprProfil" action='profil/supprimerprofil' method="post">
                 <div class="col-md-3 field-label-responsive">   
                     <button type="submit" class="btn btn-danger">Supprimer</button>
                 </div>
@@ -49,4 +49,18 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type='text/javascript'>
+$(document).ready(function()
+{
+    $("#SupprProfil").submit(function(event)
+    {
+        event.preventDefault();
+        AlertSuppr();
+    })
+});
+
+</script>
 @endsection

@@ -36,7 +36,8 @@ class AdminController extends BaseController
     {
         $query = "SELECT * 
                   FROM user
-                  WHERE id <> ?";
+                  WHERE id <> ? AND 
+                  login NOT LIKE 'UtilisateurSupprime%'";
 
         if($request->get('userName') !== '')
         {

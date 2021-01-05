@@ -3,6 +3,19 @@
 @section('title', 'Accueil')
 
 @section('content')
+
+@if($suppression)
+<div id="AlertSuprr">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Compte supprimé !</strong> Vous ne pourrez plus vous connecter via ce compte.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+</div>
+@endif
+
+
 <div class="jumbotron"><h1 class="display-4">Derniers films</h1>
     @if($model->Total_pages() > 1)
     <div class="text-center justify-content-center">

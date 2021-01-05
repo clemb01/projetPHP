@@ -45,6 +45,6 @@ $router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentai
 $router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');
 
 $router->get('/profil', 'ProfilController@getProfil');
-$router->post('/profil/gestionprofil', 'ProfilController@MakeAnonymeUser');
+$router->post('/profil/supprimerprofil', 'ProfilController@MakeAnonymeUser');
 
 

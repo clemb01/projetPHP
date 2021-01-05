@@ -44,7 +44,7 @@ class MovieController extends BaseController
 
         $model = new SearchViewModel($result);
 
-        return view('accueil', ['model' => $model]);
+        return view('accueil', ['model' => $model,"suppression"=> $request->get("suppression") ?? false]);
     }
 
     public function getFilm($id)
