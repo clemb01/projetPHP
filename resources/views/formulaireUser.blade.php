@@ -59,7 +59,7 @@
             </div>
             <div class="col-md-6 field-label-responsive">
                 <div class="form-group">
-                    <input type="password" class="form-control" onchange="CheckPassword()" id="password" name="password" required>
+                    <input type="password" class="form-control" onkeyup="CheckPassword()" id="password" name="password" required>
                 </div>
             </div>
             <div class="col-md-3 field-label-responsive">
@@ -76,7 +76,7 @@
             </div>
             <div class="col-md-6 field-label-responsive">
                 <div class="form-group">
-                    <input type="password" class="form-control" onchange="CheckConfirmPassword()" id="confirmPassword" name="confirmPassword" required>
+                    <input type="password" class="form-control" onkeyup="CheckConfirmPassword()" id="confirmPassword" name="confirmPassword" required>
                 </div>
             </div>
             <div class="col-md-3 field-label-responsive">
@@ -104,15 +104,16 @@ function CheckConfirmPassword(){
         document.getElementById('RegisterButton').setAttribute("disabled","true");
         
     }
-    else if(document.getElementById('password').value != document.getElementById('confirmPassword').value)
+    else if(VerifPassword() == true)
     {
-        document.getElementById('messageConfirmPassword').innerHTML = 'Erreur pas le même mot de passe !';
-        document.getElementById('RegisterButton').setAttribute("disabled","true");
+        document.getElementById('messageConfirmPassword').innerHTML = '';
+        document.getElementById('messagePassword').innerHTML = '';
+        document.getElementById('RegisterButton').removeAttribute("disabled");
     }
     else
     {
-        document.getElementById('messageConfirmPassword').innerHTML = '';
-        document.getElementById('RegisterButton').removeAttribute("disabled");
+        document.getElementById('messageConfirmPassword').innerHTML = 'Erreur pas le même mot de passe !';
+        document.getElementById('RegisterButton').setAttribute("disabled","true");
     }
 }
 
@@ -120,13 +121,31 @@ function CheckPassword(){
     if(document.getElementById('password').value == "")
     {
         document.getElementById('messagePassword').innerHTML = 'Le mot de passe ne peut être vide !';
-        
+        document.getElementById('RegisterButton').setAttribute("disabled","true");
+    }
+    else if(VerifPassword() == true)
+    {
+        document.getElementById('messagePassword').innerHTML = '';
+        document.getElementById('messageConfirmPassword').innerHTML = '';
+        document.getElementById('RegisterButton').removeAttribute("disabled");
     }
     else
     {
-        document.getElementById('messagePassword').innerHTML = '';
+        document.getElementById('messagePassword').innerHTML = 'Erreur pas le même mot de passe !';
+        document.getElementById('RegisterButton').setAttribute("disabled","true");
     }
     
+}
+
+function VerifPassword(){
+    if(document.getElementById('password').value == document.getElementById('confirmPassword').value)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 function CheckLogin() {
@@ -135,7 +154,6 @@ function CheckLogin() {
         type: "GET",
         data: { "pseudo": document.getElementById('pseudo').value }
 	}).done(function(result){
-        console.log(result);
         if(result == 'true')
         {
             document.getElementById('messagePseudo').innerHTML = 'Le login existe deja !';
@@ -147,7 +165,6 @@ function CheckLogin() {
         }
 	})
       .fail(function(result){
-          console.log(result);
       });
   }
 </script>
