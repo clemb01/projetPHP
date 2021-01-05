@@ -44,3 +44,6 @@ $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommenta
 $router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
 $router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');
 
+$router->get('/profil', 'ProfilController@getProfil');
+
+
