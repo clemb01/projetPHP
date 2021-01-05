@@ -19,7 +19,7 @@
             </div>
         </div>
     </form>
-    <h1 class="display-4">Nombre de résultats: "{{ $model->Total_results() }}"</h1>
+    <h1 class="display-4">Nombre de résultats: {{ $model->Total_results() }}</h1>
     <div class="text-center justify-content-center">
         @include('partial.pagination', ['model' => $model])
     </div>

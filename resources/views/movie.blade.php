@@ -110,7 +110,6 @@
         <div>
         <br />
         
-            
             <div id='comms'>
             </div> 
         
