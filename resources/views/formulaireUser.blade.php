@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6 field-label-responsive">
                 <div class="form-group">
-                    <input type="text" class="form-control" onchange="CheckLogin()" placeholder="xX-DarkSasuke-Xx" id="pseudo" name="pseudo" required>
+                    <input type="text" class="form-control" onchange="CheckLogin()" placeholder="xX-DarkSasuke-Xx" id="pseudo" name="pseudo" required autofocus>
                 </div>
             </div>
             <div class="col-md-3 field-label-responsive">
@@ -88,7 +88,7 @@
             </div>
         </div>
         <p>
-            <button type="submit" class="btn btn-success">S'inscrire</button>
+            <button type="submit" class="btn btn-success" id="RegisterButton" disabled>S'inscrire</button>
         </p>
     </form>
     </div>
@@ -101,16 +101,18 @@ function CheckConfirmPassword(){
     if(document.getElementById('confirmPassword').value == "")
     {
         document.getElementById('messageConfirmPassword').innerHTML = 'Le mot de passe ne peut être vide !';
+        document.getElementById('RegisterButton').setAttribute("disabled","true");
         
     }
     else if(document.getElementById('password').value != document.getElementById('confirmPassword').value)
     {
         document.getElementById('messageConfirmPassword').innerHTML = 'Erreur pas le même mot de passe !';
-        
+        document.getElementById('RegisterButton').setAttribute("disabled","true");
     }
     else
     {
         document.getElementById('messageConfirmPassword').innerHTML = '';
+        document.getElementById('RegisterButton').removeAttribute("disabled");
     }
 }
 

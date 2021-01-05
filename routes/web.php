@@ -43,3 +43,7 @@ $router->post('/admin/updateuserrole', 'AdminController@updateUserRole');
 $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommentaire');
 $router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
 $router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');
+
+$router->get('/profil', 'ProfilController@getProfil');
+
+

@@ -52,7 +52,7 @@
                         <li data-toggle='modal' data-target='#SeConnecter' class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnLogin">Se connecter</a></li>
                         <li class='nav-item active' onclick="" ><a class="btn btn-default BtnDroit" id="BtnInscrire" href="/formulaireUser">S'inscrire</a></li>
                     @else
-                        <li class='nav-item active' href="#" ><a class="btn btn-default BtnDroit">{{ $_SESSION['user']->getLogin()}}</a></li>
+                        <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/profil">{{ $_SESSION['user']->getLogin()}}</a></li>
                         <li class='nav-item active' ><a class="btn btn-default BtnDroit" href="/accueil/logout?returnUrl={{ $_SERVER['REQUEST_URI'] }}"  id="BtnInscrire">Se deconnecter</a></li>
                     @endif
                 </ul>
@@ -75,7 +75,7 @@
                         <form class="Jumbotron" action='/accueil/login' method="post">
                             <input type="text" value="{{ $_SERVER['REQUEST_URI'] }}" name="returnUrl" hidden/>
                             <p><label class="">Login</label></p>
-                            <p><input type="text" class="form-control" value="" name="login_user" name="login_user" required></p>
+                            <p><input type="text" class="form-control" value="" id="login_user" name="login_user" name="login_user" required autofocus></p>
                             <p><label class="">Mot de passe</label></p>
                             <p><input type="password" class="form-control" value="" id="mdp_user" name="mdp_user" required></p>
                             <p>
@@ -90,6 +90,11 @@
     <script src="/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script type='text/javascript'>
+        $('#SeConnecter').on('shown.bs.modal', function () {
+            $('#login_user').focus();
+        })  
+    </script>
     @yield('script')
 
 </body>
