@@ -25,22 +25,18 @@
                     </div>
                     <div class="col-8">
                         <h1 class="display-4" style="font-size: 36px;">{{ $movie->title }}</h1>
+                        <p>
+                            <?php $count = count($movie->genres); ?>
+                            @for ($i = 0; $i < $count; $i++)
+                                <span class="badge badge-pill badge-primary">{{ $movie->genres[$i]->name }}</span>
+                            @endfor
+                        </p>
                         <span>
                             {{ $date }} - {{ $hour }}
                             <div id="note_utilisateurs"></div>
                         </span>
                         <p class="lead">Synopsis</p>
                         <p>{{ $movie->overview ? $movie->overview : "Pas de synopsis renseigné" }}</p>
-                        <p class="lead">Genres</p>
-                        <p>
-                            <?php $count = count($movie->genres); ?>
-                            @for ($i = 0; $i < $count; $i++)
-                                <span style="color: #0366d6; font-weight: bold;">{{ $movie->genres[$i]->name }}</span>
-                                @if ($i < $count - 1)
-                                    , 
-                                @endif
-                            @endfor
-                        </p>
                     </div>
                 </div>
             </div>
