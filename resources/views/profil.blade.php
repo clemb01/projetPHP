@@ -41,15 +41,35 @@
             <div class="col-md-3 field-label-responsive">
                 <button type="submit" class="btn btn-success">Modifier</button>
             </div>
-            <form id="SupprProfil" action='profil/supprimerprofil' method="post">
+           
                 <div class="col-md-3 field-label-responsive">   
-                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                    <button data-toggle='modal' data-target='#Supprimer' type="submit" class="btn btn-danger">Supprimer</button>
                 </div>
-            </form>
+            <div class="modal fade" id="Supprimer" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="color: red;">
+                        <h2 class="modal-title">Suppression du Compte</h2>
+                    </div>
+                    <div class="modal-body" id="ConfirmationSuppr">
+                        <form id="SupprProfil" class="Jumbotron" action='profil/supprimerprofil' method="post">
+                            <p><label class=""><strong>Êtes-vous sûr de vouloir supprimer votre compte ?</strong></label></p>
+                            <p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>            
         </div>
     </div>
 </div>
 @endsection
+
+
+
 
 @section('script')
 <script type='text/javascript'>
