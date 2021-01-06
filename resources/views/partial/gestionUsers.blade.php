@@ -32,11 +32,11 @@
     <p>
         @if ($model->Page() > 1)
         <a href="#" onclick="changePage(1);">Début</a> -
-        <a href="#" onclick="changePage({{ $model->Page() > 1 ? $model->Page() - 1 : 1 }});">Précédent</a>
+        <a href="#" onclick="changePage({{ $model->Page() > 1 ? $model->Page() - 1 : 1 }});">Précédent</a> -
         @endif
-        - Page {{ $model->Page() }} -
+        Page {{ $model->Page() }}
         @if ($model->Page() < $model->Total_pages())
-        <a href="#" onclick="changePage({{ $model->Page() < $model->Total_pages() ? $model->Page() + 1 : $model->Total_pages() }});">Suivant</a> -
+        - <a href="#" onclick="changePage({{ $model->Page() < $model->Total_pages() ? $model->Page() + 1 : $model->Total_pages() }});">Suivant</a> -
         <a href="#" onclick="changePage({{ $model->Total_pages() }});">Fin</a>
         @endif
     </p>
