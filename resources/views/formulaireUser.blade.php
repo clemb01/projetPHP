@@ -157,11 +157,11 @@ function CheckLogin() {
         if(result == 'true')
         {
             document.getElementById('messagePseudo').innerHTML = 'Le login existe deja !';
-            document.getElementById('pseudo').value = '';
+            document.getElementById('ModifButton').setAttribute("disabled","true");
         }
         else
         {
-            document.getElementById('messagePseudo').innerHTML = '';
+            document.getElementById('ModifButton').removeAttribute("disabled");
         }
 	})
       .fail(function(result){
