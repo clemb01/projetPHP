@@ -38,7 +38,7 @@ class ModifUserController extends BaseController
                 FonctionsCookie::setSessionCookie($user->getLogin());
             }
 
-            return redirect("/profil");
+            return redirect("/profil/".$user->getLogin());
         }
         else
         {
