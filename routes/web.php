@@ -26,6 +26,10 @@ $router->get('/formulaireUser', 'FormulaireUserController@getFormulaire');
 $router->post('/formulaireUser/register', 'FormulaireUserController@addUser');
 $router->get('/formulaireUser/checkLoginExist', 'FormulaireUserController@checkLoginExist');
 
+$router->get('/modifUser', 'ModifUserController@getModif');
+$router->post('/modifUser/Save', 'ModifUserController@updateUser');
+$router->get('/modifUser/checkLoginExist', 'ModifUserController@checkLoginExist');
+
 $router->get('/rate/getrate', 'NoteController@getMovieRate');
 $router->get('/rate/getuserrate', 'NoteController@getUserMovieRate');
 $router->post('/rate/rate', 'NoteController@rateMovie');

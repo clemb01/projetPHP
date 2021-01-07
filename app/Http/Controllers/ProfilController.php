@@ -11,11 +11,17 @@ class ProfilController extends BaseController
 {
     public function getProfil($userName)
     {
-        $result = DB::select("SELECT * FROM user WHERE login = ?", [$userName]);
-
-        $user = new User($result[0]);
-
-        return view('profil', ['user' => $user]);
+        if(empty($_SESSION['user']))
+        {
+            return redirect('/accueil');
+        }
+        else
+        {
+            $result = DB::select("SELECT * FROM user WHERE login = ?",[$_SESSION['user']->getLogin()]);
+            $user = new User($result[0]);
+            return view('profil',['user' => $user]);
+        }
+        
     }
 
     public function MakeAnonymeUser(Request $request)

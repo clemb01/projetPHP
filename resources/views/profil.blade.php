@@ -39,11 +39,10 @@
         </div>
         @if(isset($_SESSION['user']) && $user->getLogin() == $_SESSION['user']->getLogin())
         <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <button type="submit" class="btn btn-success">Modifier</button>
-            </div>           
+                      
             <div class="col-md-3 field-label-responsive">   
                 <button data-toggle='modal' data-target='#Supprimer' type="submit" class="btn btn-danger">Supprimer</button>
+                <a href="/modifUser" class="btn btn-success">Modifier</a>
             </div>
             <div class="modal fade" id="Supprimer" role="dialog">
             <div class="modal-dialog">
