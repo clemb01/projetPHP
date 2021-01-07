@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-6 field-label-responsive">
                 <div class="form-group">
-                    <input type="text" class="form-control" onchange="CheckLogin()" placeholder="xX-DarkSasuke-Xx" id="pseudo" name="pseudo" required autofocus>
+                    <input type="text" class="form-control" onkeyup="CheckLogin()" placeholder="xX-DarkSasuke-Xx" id="pseudo" name="pseudo" required autofocus>
                 </div>
             </div>
             <div class="col-md-3 field-label-responsive">
@@ -157,11 +157,12 @@ function CheckLogin() {
         if(result == 'true')
         {
             document.getElementById('messagePseudo').innerHTML = 'Le login existe deja !';
-            document.getElementById('ModifButton').setAttribute("disabled","true");
+            document.getElementById('RegisterButton').setAttribute("disabled","true");
         }
         else
         {
-            document.getElementById('ModifButton').removeAttribute("disabled");
+            document.getElementById('RegisterButton').removeAttribute("disabled");
+            document.getElementById('messagePseudo').innerHTML = '';
         }
 	})
       .fail(function(result){

@@ -37,14 +37,14 @@
                 <label class="">{{$user->getDateN()}}</label>
             </div>
         </div>
+        @if(isset($_SESSION['user']) && $user->getLogin() == $_SESSION['user']->getLogin())
         <div class="row">
             <div class="col-md-3 field-label-responsive">
                 <button type="submit" class="btn btn-success">Modifier</button>
+            </div>           
+            <div class="col-md-3 field-label-responsive">   
+                <button data-toggle='modal' data-target='#Supprimer' type="submit" class="btn btn-danger">Supprimer</button>
             </div>
-           
-                <div class="col-md-3 field-label-responsive">   
-                    <button data-toggle='modal' data-target='#Supprimer' type="submit" class="btn btn-danger">Supprimer</button>
-                </div>
             <div class="modal fade" id="Supprimer" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -64,17 +64,31 @@
             </div>
             </div>            
         </div>
+        @endif
+        <hr />
+        <div id="user_comms">
+
+        </div>
     </div>
 </div>
 @endsection
-
-
-
 
 @section('script')
 <script type='text/javascript'>
 $(document).ready(function()
 {
+    var userId = {{ $user->getId() }}
+    $.ajax({
+		url : "/comms/userCommentaires",
+        type: "GET",
+        data: { "userId": userId }
+	}).done(function(result){
+        document.getElementById('user_comms').innerHTML = result;
+	})
+      .fail(function(result){
+          console.log(result);
+      });
+
     $("#SupprProfil").submit(function(event)
     {
         event.preventDefault();

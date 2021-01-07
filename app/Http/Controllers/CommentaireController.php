@@ -10,7 +10,6 @@ use App\Models\Commentaire;
 
 class CommentaireController extends BaseController
 {
-
     public function getUserMovieComms(Request $request)
     {
         $userComms = DB::select("SELECT commentaire.*, user.login 
@@ -22,7 +21,7 @@ class CommentaireController extends BaseController
         foreach ($userComms as $comm) {
             array_push($commentaires, new CommentaireViewModel($comm));
         }
-        return view('partial.Comms', ['commentaires' => $commentaires]);
+        return view('partial.Comms', ['commentaires' => $commentaires, 'isMoviepage' => true]);
     }
 
     public function saveComms(Request $request)
@@ -36,6 +35,22 @@ class CommentaireController extends BaseController
         $id = $request->get('MovieId');
 
         return redirect("/movie/$id");
+    }
+
+    public function getAllUserComms(Request $request)
+    {
+        $userComms = DB::select("SELECT commentaire.*, user.login 
+                                 FROM commentaire 
+                                 LEFT OUTER JOIN user 
+                                 ON commentaire.fk_user_id = user.id 
+                                 WHERE fk_user_id = ?", [$request->get('userId')]);
+
+        $commentaires = array();
+        foreach ($userComms as $comm) {
+            array_push($commentaires, new CommentaireViewModel($comm));
+        }
+
+        return view('partial.Comms', ['commentaires' => $commentaires, 'isMoviepage' => false]);
     }
 
     public function getUserMovieComm(Request $request)

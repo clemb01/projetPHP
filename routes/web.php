@@ -35,6 +35,7 @@ $router->get('/comms/getCommentaires', 'CommentaireController@getUserMovieComms'
 $router->get('/comms/getCommentaire', 'CommentaireController@getUserMovieComm');
 $router->post('/comms/Modif', 'CommentaireController@ModifComms');
 $router->post('/comms/suppCommentaire', 'CommentaireController@suppComms');
+$router->get('/comms/userCommentaires', 'CommentaireController@getAllUserComms');
 
 $router->get('/admin/commentaires', 'AdminController@CommentairesView');
 $router->get('/admin/users', 'AdminController@UsersView');
@@ -44,7 +45,5 @@ $router->get('/admin/getpendingcommentaire', 'AdminController@getPendingCommenta
 $router->post('/admin/acceptercommentaire', 'AdminController@acceptUserCommentaire');
 $router->post('/admin/refusercommentaire', 'AdminController@refuseUserCommentaire');
 
-$router->get('/profil', 'ProfilController@getProfil');
+$router->get('/profil/{userName}', 'ProfilController@getProfil');
 $router->post('/profil/supprimerprofil', 'ProfilController@MakeAnonymeUser');
-
-

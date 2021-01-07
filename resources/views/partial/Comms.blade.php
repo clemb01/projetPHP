@@ -9,10 +9,11 @@
                 <p class="card-text"><strong>Utilisateur Supprimé</strong> <small>{{$commentaire->Date()}}</small></p>
                 <p class="card-text">{{$commentaire->Contenu()}}</p>
             @else
-                <p class="card-text"><strong>{{$commentaire->Login()}}</strong> <small>{{$commentaire->Date()}}</small></p>
+                <p class="card-text"><strong><a href="/profil/{{$commentaire->Login()}}">{{$commentaire->Login()}}</a></strong> <small>{{$commentaire->Date()}}</small></p>
                 <p class="card-text">{{$commentaire->Contenu()}}</p>
             @endif
             </div>
+            @if($isMoviepage)
             @if(!empty($_SESSION['user']))
             @if($_SESSION['user']->getRole() === "admin" || $_SESSION['user']->getRole() === "modo" || $_SESSION['user']->getLogin() === $commentaire->Login())
             <div class="col-md-1">
@@ -25,6 +26,7 @@
                     <button class="btn btn-secondary" href="#" onclick="showModalCommsSupp({{$commentaire->Id()}})"><img src='\poubellePHP.png' style='width: 25px; height: 25px;'/></button>
                 </div>
             </div>
+            @endif
             @endif
             @endif
         </div>

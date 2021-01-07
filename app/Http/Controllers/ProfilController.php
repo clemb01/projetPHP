@@ -9,16 +9,13 @@ use App\Models\User;
 
 class ProfilController extends BaseController
 {
-    public function getProfil()
+    public function getProfil($userName)
     {
-        if (empty($_SESSION['user'])) {
-            return redirect('/accueil');
-        } else {
-            $result = DB::select("SELECT * FROM user WHERE login = ?", [$_SESSION['user']->getLogin()]);
+        $result = DB::select("SELECT * FROM user WHERE login = ?", [$userName]);
 
-            $user = new User($result[0]);
-            return view('profil', ['user' => $user]);
-        }
+        $user = new User($result[0]);
+
+        return view('profil', ['user' => $user]);
     }
 
     public function MakeAnonymeUser(Request $request)
