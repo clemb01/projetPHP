@@ -9,7 +9,7 @@
                 <a href="/movie/{{ $commentaire->FilmId() }}"><img src="http://image.tmdb.org/t/p/w500{{ $commentaire->Film_logo() }}" class="card-img thumbnail" style="width: 110px;"></a>
             </div>
             @endif
-            <div class="col-md-8"> 
+            <div class="col-md-10"> 
             @if($isMoviepage && str_contains($commentaire->Login(),'UtilisateurSupprimé'))
                 <p class="card-text"><strong>Utilisateur Supprimé</strong> <small>{{$commentaire->Date()}}</small></p>
                 <p class="card-text">{{$commentaire->Contenu()}}</p>
